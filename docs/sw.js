@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v9';
+const CACHE = 'mini-games-v10';
 
 const CORE = [
   './',
@@ -134,7 +134,12 @@ const CORE = [
   './4player/math-race/style.css',
   './4player/math-race/game.js',
   './4player/math-race/engine.js',
-  './4player/math-race/assets/icon.svg'
+  './4player/math-race/assets/icon.svg',
+  './1player/hangman/',
+  './1player/hangman/style.css',
+  './1player/hangman/game.js',
+  './1player/hangman/engine.js',
+  './1player/hangman/assets/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

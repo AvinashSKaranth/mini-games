@@ -3,7 +3,7 @@
 **Project:** `mini-games`
 **Reference:** [Offline Games – No Wifi Games](https://play.google.com/store/apps/details?id=com.JindoBlu.OfflineGames&hl=en_IN) + sibling JindoBlu titles ([2 Player games: the Challenge](https://play.google.com/store/apps/details?id=com.JindoBlu.TwoPlayerGamesChallenge), [1 2 3 4 Player Games](https://play.google.com/store/apps/details?id=com.JindoBlu.FourPlayers))
 **Platform:** Mobile-first static website, hosted on GitHub Pages, free to play, no login, no backend
-**Status:** 25-game slice shipped (P1 waves 1–3)
+**Status:** 26-game slice shipped (P1 waves 1–3)
 **Date:** 23 Oct 2026
 
 ---
@@ -20,7 +20,7 @@ The collection is organized around **player count**, because that is the referen
 | **2 Player** | Same-device duels, split-screen or turn-based, optional AI opponent | 18 games |
 | **4 Player** | Party games for 2–4 people on one phone/tablet, plus 2v2 | 14 games |
 
-**MVP target:** 12 games (shipped), now extended to a 25-game P1 wave. Current shipped slice: 1P 6, 2P 12, 4P 7.
+**MVP target:** 12 games (shipped), now extended to a 26-game P1 wave. Current shipped slice: 1P 7, 2P 12, 4P 7.
 **Full target:** 56 games. Every game must be playable with touch only, portrait-first, and load in under 1 second after first visit.
 
 **Non-goals for v1:** online multiplayer, accounts, leaderboards across devices, 3D, ads, in-app purchases, level editors.
@@ -318,6 +318,7 @@ Ship after every phase; GitHub Pages deploys from `/docs` on `main`.
 | Minesweeper | 1 | `docs/1player/minesweeper/` | Safe first tap, flood reveal, flag mode, long-press, chord, timer, best time |
 | Word Guess | 1 | `docs/1player/word-guess/` | Six guesses, duplicate-aware scoring, on-screen QWERTY, stats, replay |
 | Solitaire | 1 | `docs/1player/solitaire/` | Klondike draw-one, stock recycle, tableau/foundation moves, timer, win flow |
+| Hangman | 1 | `docs/1player/hangman/` | Eight word categories, six misses, on-screen QWERTY, gallows reveal, win streak stats |
 | Darts | 1 | `docs/2player/darts/` | Solo 501 or local 2P, three-dart visits, double-out checkout, bust handling |
 | Tic Tac Toe | 2 | `docs/2player/tic-tac-toe/` | Local 2P or AI, first to 5 round wins, winning line, draws |
 | Four in a Row | 2 | `docs/2player/four-in-a-row/` | Local 2P or AI, column preview, drop animation, first to 3 rounds |
@@ -339,7 +340,7 @@ Ship after every phase; GitHub Pages deploys from `/docs` on `main`.
 | Archery | 4 | `docs/4player/archery/` | Five hot-seat rounds, drag-to-aim target, wind drift, sweeping power meter, ring scoring |
 | Math Race | 4 | `docs/4player/math-race/` | Four quiz lanes, per-player difficulty ramp, wrong-answer pause, first to eight wins, best time |
 
-Landing page is `docs/index.html`, with player-count filters for All 25, 1P 6, 2P 12, and 4P 7. Darts is classified as the sixth 1P card because solo 501 is its primary mode; the build also supports local 2P.
+Landing page is `docs/index.html`, with player-count filters for All 26, 1P 7, 2P 12, and 4P 7. Darts is classified as the sixth 1P card because solo 501 is its primary mode; the build also supports local 2P.
 
 ### Decisions taken
 
@@ -354,7 +355,7 @@ Landing page is `docs/index.html`, with player-count filters for All 25, 1P 6, 2
 
 ### Offline and performance
 
-- `docs/sw.js` pre-caches the hub, shared shell, and all twenty-five games. `CACHE` is now `mini-games-v9`.
+- `docs/sw.js` pre-caches the hub, shared shell, and all twenty-six games. `CACHE` is now `mini-games-v10`.
 - Install fetches each core asset with `cache: 'reload'` so a new service-worker version cannot re-cache stale files from an older worker.
 - All assets are local SVGs; no external fonts, scripts, or network calls are required after first load.
 - Static checks cover every game link and asset, and browser smoke tests cover 320x568, 390x844, 568x320, and 844x390 plus an offline reload.

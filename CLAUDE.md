@@ -257,7 +257,7 @@ Rules:
 
 ## 14. Current catalog (after P1 wave 2)
 
-**1 player (6):** 2048, Sudoku, Minesweeper, Word Guess, Solitaire, Darts.
+**1 player (7):** 2048, Sudoku, Minesweeper, Word Guess, Hangman, Solitaire, Darts.
 
 **2 player (12):** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Air Hockey, Chess, Mancala, Mini Golf, Checkers, Paint Fight, Memory Match.
 

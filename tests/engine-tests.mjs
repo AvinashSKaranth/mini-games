@@ -33,6 +33,16 @@ import {
   makeQuestion,
   rankPlayers as rankRacers
 } from '../docs/4player/math-race/engine.js';
+import {
+  MAX_MISSES,
+  WORDS as HANGMAN_WORDS,
+  isSolved as isHangmanSolved,
+  livesLeft,
+  maskWord,
+  missingLetters,
+  pickWord,
+  wrongLetters
+} from '../docs/1player/hangman/engine.js';
 
 // ---------- 2048 ----------
 const tile = (value, r, c, id) => ({ id, value, r, c });
@@ -216,5 +226,23 @@ assert.deepEqual(rankRacers([8, 3, 0, 1]).map((entry) => entry.index), [0, 1, 3,
 assert.deepEqual(rankRacers([2, 2, 0, 0]).map((entry) => entry.index), [0, 1, 2, 3]);
 assert.equal(formatSeconds(1500), '1.5s');
 assert.equal(formatSeconds(0), '0.0s');
+
+// ---------- Hangman ----------
+assert.equal(MAX_MISSES, 6);
+assert.deepEqual(pickWord(() => 0), { word: 'TIGER', category: 'Animals' });
+assert.deepEqual(pickWord(() => 0, 'TIGER'), { word: 'GIRAFFE', category: 'Animals' });
+assert.deepEqual(pickWord(() => 0.999), { word: 'CLARINET', category: 'Music' });
+for (const entry of HANGMAN_WORDS) {
+  assert.match(entry.word, /^[A-Z]+$/, `${entry.word} is upper-case letters only`);
+  assert.ok(entry.category.length > 0, `${entry.word} has a category`);
+}
+
+assert.deepEqual(maskWord('TIGER', new Set(['T', 'G'])), ['T', null, 'G', null, null]);
+assert.equal(isHangmanSolved('TIGER', new Set([...'TIGER'])), true);
+assert.equal(isHangmanSolved('TIGER', new Set([...'TIGE'])), false);
+assert.deepEqual(wrongLetters('TIGER', new Set(['T', 'A', 'B'])), ['A', 'B']);
+assert.equal(livesLeft('TIGER', new Set(['T', 'A', 'B'])), MAX_MISSES - 2);
+assert.deepEqual(missingLetters('BANANA', new Set(['B'])), ['A', 'N']);
+assert.deepEqual(missingLetters('BANANA', new Set([...'BAN'])), []);
 
 console.log('engine tests passed');
