@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play Minesweeper offline. Reveal safe cells, flag mines, and beat the clock.">
+  <title>Minesweeper · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Minesweeper</h1>
+          <p>1 player · logic</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="new-game" aria-label="New board">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="side-panel side-panel--top">
+      <div class="difficulty" role="group" aria-label="Difficulty">
+        <button data-level="easy" class="is-active">Easy</button>
+        <button data-level="medium">Medium</button>
+        <button data-level="hard">Hard</button>
+      </div>
+
+      <section class="meta" aria-label="Board status">
+        <div>
+          <span>Mines</span>
+          <strong id="mines-left">10</strong>
+        </div>
+        <div>
+          <span>Time</span>
+          <strong id="timer">00:00</strong>
+        </div>
+        <div>
+          <span>Best</span>
+          <strong id="best">—</strong>
+        </div>
+      </section>
+    </div>
+
+    <div class="board-wrap">
+      <div class="board" id="board" role="grid" aria-label="Minesweeper board"></div>
+      <div class="veil" id="veil" hidden>
+        <div class="veil-card">
+          <div class="face-plate" id="veil-face" aria-hidden="true"><img src="assets/trophy.svg" alt="" width="64" height="64"></div>
+          <p class="eyebrow" id="veil-eyebrow">Board cleared</p>
+          <h2 id="veil-title">You win!</h2>
+          <p id="veil-copy">Every mine accounted for.</p>
+          <dl class="result" id="veil-stats"></dl>
+          <div class="veil-actions">
+            <button class="btn btn--primary" id="veil-primary">Play again</button>
+            <button class="btn btn--ghost" id="veil-secondary" hidden>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-panel side-panel--bottom">
+      <div class="toolbar">
+        <button class="tool" id="flag-mode" aria-pressed="false">
+          <img src="assets/flag.svg" alt="" width="18" height="18">
+          <span>Flag mode</span>
+        </button>
+        <button class="tool" id="restart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Restart</span>
+        </button>
+      </div>
+
+      <p class="hint">Tap to reveal · long-press or use Flag mode to mark a mine</p>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

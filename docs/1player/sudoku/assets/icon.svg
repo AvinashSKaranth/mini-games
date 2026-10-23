@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sudoku game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3FD7C6"/>
+      <stop offset="1" stop-color="#16A99B"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="82" y="82" width="348" height="348" rx="44" fill="#FFFDF8" stroke="#1E2433" stroke-width="12"/>
+  <g stroke="#1E2433" stroke-width="10" stroke-linecap="round" opacity=".85">
+    <path d="M198 92v328M314 92v328M92 198h328M92 314h328"/>
+  </g>
+  <g stroke="#1E2433" stroke-width="5" stroke-linecap="round" opacity=".22">
+    <path d="M140 92v328M256 92v328M372 92v328M92 140h328M92 256h328M92 372h328"/>
+  </g>
+  <rect x="209" y="209" width="94" height="94" rx="18" fill="url(#teal)" stroke="#1E2433" stroke-width="8"/>
+  <g font-family="ui-rounded, 'Arial Rounded MT Bold', 'Segoe UI', sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="central">
+    <text x="140" y="140" font-size="66" fill="#1E2433">5</text>
+    <text x="372" y="140" font-size="66" fill="#1E2433">3</text>
+    <text x="140" y="256" font-size="66" fill="#1E2433">9</text>
+    <text x="256" y="256" font-size="64" fill="#FFFDF8">7</text>
+    <text x="372" y="372" font-size="66" fill="#1E2433">2</text>
+    <text x="256" y="372" font-size="66" fill="#1E2433">8</text>
+  </g>
+  <g fill="#FF6B5A" stroke="#1E2433" stroke-width="7" stroke-linejoin="round">
+    <path d="M420 88l8 18 20 3-15 14 4 20-17-10-18 10 4-20-14-14 20-3z"/>
+  </g>
+</svg>

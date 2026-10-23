@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Tic tac toe game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="70" y="70" width="372" height="372" rx="52" fill="#FFFDF8" stroke="#1E2433" stroke-width="12"/>
+  <g stroke="#1E2433" stroke-width="16" stroke-linecap="round" opacity=".9">
+    <path d="M194 92v328M318 92v328M92 194h328M92 318h328"/>
+  </g>
+  <g stroke="#1E2433" stroke-width="56" stroke-linecap="round" fill="none">
+    <path d="M124 124l52 52M176 124l-52 52"/>
+    <path d="M336 336l52 52M388 336l-52 52"/>
+  </g>
+  <g stroke="#FF6B5A" stroke-width="38" stroke-linecap="round" fill="none">
+    <path d="M124 124l52 52M176 124l-52 52"/>
+    <path d="M336 336l52 52M388 336l-52 52"/>
+  </g>
+  <g stroke="#1E2433" stroke-width="56" fill="none">
+    <circle cx="256" cy="256" r="50"/>
+  </g>
+  <circle cx="256" cy="256" r="50" fill="none" stroke="#21B6A8" stroke-width="38"/>
+</svg>

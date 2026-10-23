@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sparkle">
+  <path d="M256 44c14 118 50 154 168 168-118 14-154 50-168 168-14-118-50-154-168-168 118-14 154-50 168-168z"
+        fill="#FFD166" stroke="#1E2433" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M392 330c7 58 25 76 83 83-58 7-76 25-83 83-7-58-25-76-83-83 58-7 76-25 83-83z"
+        fill="#FF6B5A" stroke="#1E2433" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M116 70c4 34 15 45 49 49-34 4-45 15-49 49-4-34-15-45-49-49 34-4 45-15 49-49z"
+        fill="#21B6A8" stroke="#1E2433" stroke-width="10" stroke-linejoin="round"/>
+</svg>

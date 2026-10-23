@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="2048 game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A78"/>
+      <stop offset="1" stop-color="#F65B49"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD166"/>
+      <stop offset="1" stop-color="#FFB703"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="56" y="56" width="400" height="400" rx="64" fill="#C8B9A4"/>
+  <g stroke="#1E2433" stroke-width="10" stroke-linejoin="round">
+    <rect x="86" y="86" width="160" height="160" rx="30" fill="url(#amber)"/>
+    <rect x="266" y="86" width="160" height="160" rx="30" fill="#FFF9F0"/>
+    <rect x="86" y="266" width="160" height="160" rx="30" fill="#FFF9F0"/>
+    <rect x="266" y="266" width="160" height="160" rx="30" fill="url(#coral)"/>
+  </g>
+  <g font-family="ui-rounded, 'Arial Rounded MT Bold', 'Segoe UI', sans-serif" font-weight="900" text-anchor="middle" dominant-baseline="central">
+    <text x="166" y="172" font-size="86" fill="#1E2433">2</text>
+    <text x="346" y="172" font-size="86" fill="#1E2433">0</text>
+    <text x="166" y="352" font-size="86" fill="#1E2433">4</text>
+    <text x="346" y="352" font-size="86" fill="#FFF9F0">8</text>
+  </g>
+  <g fill="#FFD166" stroke="#1E2433" stroke-width="8" stroke-linejoin="round">
+    <path d="M425 118l10 22 24 3-18 17 5 24-21-12-21 12 5-24-18-17 24-3z"/>
+  </g>
+</svg>
