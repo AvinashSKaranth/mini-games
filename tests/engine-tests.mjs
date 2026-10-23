@@ -18,6 +18,14 @@ import {
   isSolved,
   formatTime
 } from '../docs/1player/sudoku/engine.js';
+import {
+  accuracyFrom,
+  nextWind,
+  rankPlayers,
+  resolveShot,
+  scoreFor,
+  windDrift
+} from '../docs/4player/archery/engine.js';
 
 // ---------- 2048 ----------
 const tile = (value, r, c, id) => ({ id, value, r, c });
@@ -133,5 +141,47 @@ for (let i = 0; i < 81; i += 1) {
 assert.equal(formatTime(0), '00:00');
 assert.equal(formatTime(65), '01:05');
 assert.equal(formatTime(3599), '59:59');
+
+// ---------- Archery ----------
+assert.equal(scoreFor(0, 0).score, 10);
+assert.equal(scoreFor(4.9, 0).score, 10);
+assert.equal(scoreFor(5.1, 0).score, 9);
+assert.equal(scoreFor(12, 0).score, 8);
+assert.equal(scoreFor(0, 49.9).score, 1);
+assert.equal(scoreFor(0, 50.5).score, 0);
+assert.equal(scoreFor(0, 50.5).onTarget, false);
+
+assert.equal(windDrift(2), 13);
+assert.equal(windDrift(-2), -13);
+assert.equal(windDrift(-9), -13);
+assert.equal(windDrift(0.5), 3.25);
+
+assert.equal(accuracyFrom(50), 1);
+assert.equal(accuracyFrom(0), 0);
+assert.equal(accuracyFrom(100), 0);
+assert.equal(accuracyFrom(75), 0.5);
+
+const perfect = resolveShot({ aimX: 50, aimY: 50, wind: 0, accuracy: 1, rng: () => 0 });
+assert.equal(perfect.score, 10);
+assert.equal(perfect.onTarget, true);
+
+const drifted = resolveShot({ aimX: 50, aimY: 50, wind: 1, accuracy: 1, rng: () => 0 });
+assert.equal(drifted.score, 9);
+
+const wild = resolveShot({ aimX: 50, aimY: 50, wind: 0, accuracy: 0, rng: () => 0.5 });
+assert.equal(wild.onTarget, true);
+assert.equal(wild.score, 6);
+
+const miss = resolveShot({ aimX: 96, aimY: 50, wind: 2, accuracy: 0.2, rng: () => 0 });
+assert.equal(miss.onTarget, false);
+assert.equal(miss.score, 0);
+
+assert.equal(nextWind(() => 0), -2);
+assert.equal(nextWind(() => 0.999), 2);
+assert.equal(nextWind(() => 0.5), 0);
+
+const ranking = rankPlayers([14, 14, 9, 3], [0, 2, 1, 0]);
+assert.deepEqual(ranking.map((entry) => entry.index), [1, 0, 2, 3]);
+assert.deepEqual(rankPlayers([5, 6, 7, 8]).map((entry) => entry.index), [3, 2, 1, 0]);
 
 console.log('engine tests passed');

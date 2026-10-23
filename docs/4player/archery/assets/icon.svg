@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF8"/>
+      <stop offset="1" stop-color="#FFEFD3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".35" cy=".28" r=".8">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="tileClip">
+      <rect x="4" y="4" width="104" height="104" rx="26"/>
+    </clipPath>
+  </defs>
+
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#tile)" stroke="#1E2433" stroke-opacity=".14" stroke-width="2"/>
+
+  <g clip-path="url(#tileClip)">
+    <g transform="translate(56 60)">
+      <circle r="38" fill="#F6EBD6" stroke="#1E2433" stroke-opacity=".16" stroke-width="2"/>
+      <circle r="38" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="1.4"/>
+      <circle r="30" fill="#3D6FB4"/>
+      <circle r="30" fill="none" stroke="#1E2433" stroke-opacity=".12" stroke-width="1.2"/>
+      <circle r="22" fill="#21B6A8"/>
+      <circle r="22" fill="none" stroke="#1E2433" stroke-opacity=".12" stroke-width="1.2"/>
+      <circle r="14" fill="#FF6B5A"/>
+      <circle r="14" fill="none" stroke="#1E2433" stroke-opacity=".12" stroke-width="1.2"/>
+      <circle r="6" fill="#FFB703"/>
+      <circle r="2" fill="#FFFFFF" fill-opacity=".85"/>
+    </g>
+
+    <g stroke="#1E2433" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M96 18 62 52"/>
+    </g>
+    <g fill="#1E2433">
+      <path d="M58 56 70 52.6 63.4 46Z"/>
+      <path d="M90 12 82 16.4 95.6 30 100 22Z" fill="#FF6B5A" stroke="#1E2433" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+    <circle cx="60" cy="54" r="2.6" fill="#FFF9F0" stroke="#1E2433" stroke-width="1.6"/>
+
+    <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#glow)"/>
+  </g>
+</svg>

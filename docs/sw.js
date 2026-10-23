@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v7';
+const CACHE = 'mini-games-v8';
 
 const CORE = [
   './',
@@ -124,7 +124,12 @@ const CORE = [
   './4player/tug-of-war/',
   './4player/tug-of-war/style.css',
   './4player/tug-of-war/game.js',
-  './4player/tug-of-war/assets/icon.svg'
+  './4player/tug-of-war/assets/icon.svg',
+  './4player/archery/',
+  './4player/archery/style.css',
+  './4player/archery/game.js',
+  './4player/archery/engine.js',
+  './4player/archery/assets/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
