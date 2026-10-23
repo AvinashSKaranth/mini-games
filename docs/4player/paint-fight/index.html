@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Four-player Paint Fight on one device. Move your blob, paint the wall, and own the most tiles after 45 seconds.">
+  <title>Paint Fight · 4 Player · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Paint Fight</h1>
+          <p>4 players · 45s paint-off</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Restart the round">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="stage">
+      <section class="hud" aria-label="Scores and timer">
+        <div class="score score--p1" id="card-0"><span class="score-name"><i class="dot"></i>P1</span><b class="score-pct" id="pct-0">0%</b><span class="meter"><i id="bar-0"></i></span></div>
+        <div class="score score--p2" id="card-1"><span class="score-name"><i class="dot"></i>P2</span><b class="score-pct" id="pct-1">0%</b><span class="meter"><i id="bar-1"></i></span></div>
+        <div class="score score--p3" id="card-2"><span class="score-name"><i class="dot"></i>P3</span><b class="score-pct" id="pct-2">0%</b><span class="meter"><i id="bar-2"></i></span></div>
+        <div class="score score--p4" id="card-3"><span class="score-name"><i class="dot"></i>P4</span><b class="score-pct" id="pct-3">0%</b><span class="meter"><i id="bar-3"></i></span></div>
+        <div class="clock" id="clock">
+          <span class="clock-time" id="timer" role="timer" aria-label="45 seconds remaining">0:45</span>
+          <span class="clock-label">left</span>
+        </div>
+      </section>
+
+      <div class="arena-wrap" id="arena-wrap">
+        <canvas id="arena" width="720" height="480" tabindex="0" role="img"
+          aria-label="Paint arena, a 24 by 16 tile wall. Four players paint from opposite corners."></canvas>
+        <div class="countdown" id="countdown" aria-hidden="true"><span id="count-num">3</span></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <section class="pad pad--p1" aria-label="Player 1 controls, coral">
+        <div class="pad-head"><i class="dot"></i><strong>P1</strong><kbd>WASD</kbd></div>
+        <div class="pad-grid">
+          <button class="pad-btn pad-btn--up" type="button" data-p="0" data-dir="up" aria-label="Player 1 move up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--left" type="button" data-p="0" data-dir="left" aria-label="Player 1 move left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <span class="pad-hub" aria-hidden="true"></span>
+          <button class="pad-btn pad-btn--right" type="button" data-p="0" data-dir="right" aria-label="Player 1 move right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--down" type="button" data-p="0" data-dir="down" aria-label="Player 1 move down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+        </div>
+      </section>
+
+      <section class="pad pad--p2" aria-label="Player 2 controls, teal">
+        <div class="pad-head"><i class="dot"></i><strong>P2</strong><kbd>IJKL</kbd></div>
+        <div class="pad-grid">
+          <button class="pad-btn pad-btn--up" type="button" data-p="1" data-dir="up" aria-label="Player 2 move up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--left" type="button" data-p="1" data-dir="left" aria-label="Player 2 move left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <span class="pad-hub" aria-hidden="true"></span>
+          <button class="pad-btn pad-btn--right" type="button" data-p="1" data-dir="right" aria-label="Player 2 move right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--down" type="button" data-p="1" data-dir="down" aria-label="Player 2 move down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+        </div>
+      </section>
+
+      <section class="pad pad--p3" aria-label="Player 3 controls, violet">
+        <div class="pad-head"><i class="dot"></i><strong>P3</strong><kbd>Arrows</kbd></div>
+        <div class="pad-grid">
+          <button class="pad-btn pad-btn--up" type="button" data-p="2" data-dir="up" aria-label="Player 3 move up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--left" type="button" data-p="2" data-dir="left" aria-label="Player 3 move left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <span class="pad-hub" aria-hidden="true"></span>
+          <button class="pad-btn pad-btn--right" type="button" data-p="2" data-dir="right" aria-label="Player 3 move right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--down" type="button" data-p="2" data-dir="down" aria-label="Player 3 move down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+        </div>
+      </section>
+
+      <section class="pad pad--p4" aria-label="Player 4 controls, blue">
+        <div class="pad-head"><i class="dot"></i><strong>P4</strong><kbd>TFGH</kbd></div>
+        <div class="pad-grid">
+          <button class="pad-btn pad-btn--up" type="button" data-p="3" data-dir="up" aria-label="Player 4 move up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--left" type="button" data-p="3" data-dir="left" aria-label="Player 4 move left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <span class="pad-hub" aria-hidden="true"></span>
+          <button class="pad-btn pad-btn--right" type="button" data-p="3" data-dir="right" aria-label="Player 4 move right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+          <button class="pad-btn pad-btn--down" type="button" data-p="3" data-dir="down" aria-label="Player 4 move down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
+        </div>
+      </section>
+    </div>
+
+    <p class="hint">Move to paint your colour. Most tiles after 45 seconds wins.</p>
+
+    <div class="veil" id="veil" hidden>
+      <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+        <img src="assets/icon.svg" alt="" width="64" height="64">
+        <p class="eyebrow" id="veil-eyebrow">Round complete</p>
+        <h2 id="veil-title">Player 1 wins!</h2>
+        <p id="veil-copy">Nice painting.</p>
+        <ol class="podium" id="podium"></ol>
+        <div class="veil-actions">
+          <button class="btn btn--primary" id="rematch" type="button">Rematch</button>
+          <a class="btn btn--ghost" href="../../index.html">All games</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

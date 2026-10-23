@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v6';
+const CACHE = 'mini-games-v7';
 
 const CORE = [
   './',
@@ -112,7 +112,19 @@ const CORE = [
   './4player/snakes/',
   './4player/snakes/style.css',
   './4player/snakes/game.js',
-  './4player/snakes/assets/icon.svg'
+  './4player/snakes/assets/icon.svg',
+  './4player/paint-fight/',
+  './4player/paint-fight/style.css',
+  './4player/paint-fight/game.js',
+  './4player/paint-fight/assets/icon.svg',
+  './4player/spinner-war/',
+  './4player/spinner-war/style.css',
+  './4player/spinner-war/game.js',
+  './4player/spinner-war/assets/icon.svg',
+  './4player/tug-of-war/',
+  './4player/tug-of-war/style.css',
+  './4player/tug-of-war/game.js',
+  './4player/tug-of-war/assets/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

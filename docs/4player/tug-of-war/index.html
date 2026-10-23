@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Tug of War 2v2 on one device. Two teammates tap in rhythm to pull the knot past their line before the clock runs out.">
+  <title>Tug of War · 2v2 · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Tug of War</h1>
+          <p>2v2 · tap in rhythm</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Restart the round">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <section class="hud" aria-label="Tap counts and timer">
+      <div class="score score--p1" id="card-0"><span class="score-name"><i class="dot"></i>P1</span><b class="score-pct" id="taps-0">0</b></div>
+      <div class="score score--p2" id="card-1"><span class="score-name"><i class="dot"></i>P2</span><b class="score-pct" id="taps-1">0</b></div>
+      <div class="score score--p3" id="card-2"><span class="score-name"><i class="dot"></i>P3</span><b class="score-pct" id="taps-2">0</b></div>
+      <div class="score score--p4" id="card-3"><span class="score-name"><i class="dot"></i>P4</span><b class="score-pct" id="taps-3">0</b></div>
+      <div class="clock" id="clock">
+        <span class="clock-time" id="timer" role="timer" aria-label="30 seconds remaining">0:30</span>
+        <span class="clock-label">left</span>
+      </div>
+    </section>
+
+    <div class="teams" aria-label="Team totals">
+      <div class="team team--a">
+        <span class="team-name">Team Coral</span>
+        <span class="team-taps"><b id="team-a">0</b> taps</span>
+        <span class="team-rhythm" id="rhythm-a" aria-live="polite"></span>
+      </div>
+      <div class="team team--b">
+        <span class="team-name">Team Teal</span>
+        <span class="team-taps"><b id="team-b">0</b> taps</span>
+        <span class="team-rhythm" id="rhythm-b" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="rope-wrap" id="rope-wrap">
+      <canvas id="rope" width="900" height="220" role="img" aria-label="A tug of war rope with a centre knot being pulled by two teams."></canvas>
+      <div class="countdown" id="countdown" aria-hidden="true"><span id="count-num">3</span></div>
+    </div>
+
+    <div class="controls">
+      <button class="tap-btn tap-btn--p1" type="button" data-p="0" aria-label="Player 1 tap, Team Coral">
+        <span class="tap-key">P1</span><span class="tap-word">TAP</span><span class="tap-hint">A</span>
+      </button>
+      <button class="tap-btn tap-btn--p2" type="button" data-p="1" aria-label="Player 2 tap, Team Coral">
+        <span class="tap-key">P2</span><span class="tap-word">TAP</span><span class="tap-hint">L</span>
+      </button>
+      <button class="tap-btn tap-btn--p3" type="button" data-p="2" aria-label="Player 3 tap, Team Teal">
+        <span class="tap-key">P3</span><span class="tap-word">TAP</span><span class="tap-hint">G</span>
+      </button>
+      <button class="tap-btn tap-btn--p4" type="button" data-p="3" aria-label="Player 4 tap, Team Teal">
+        <span class="tap-key">P4</span><span class="tap-word">TAP</span><span class="tap-hint">;</span>
+      </button>
+    </div>
+
+    <p class="hint">Tap your button. Alternate with your teammate for a rhythm bonus.</p>
+
+    <div class="veil" id="veil" hidden>
+      <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+        <img src="assets/icon.svg" alt="" width="64" height="64">
+        <p class="eyebrow" id="veil-eyebrow">Round complete</p>
+        <h2 id="veil-title">Team Coral wins!</h2>
+        <p id="veil-copy">A strong pull.</p>
+        <ol class="podium" id="podium"></ol>
+        <div class="veil-actions">
+          <button class="btn btn--primary" id="rematch" type="button">Rematch</button>
+          <a class="btn btn--ghost" href="../../index.html">All games</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

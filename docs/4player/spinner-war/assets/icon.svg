@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Four-player Spinner War game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E9F8FF"/>
+      <stop offset="1" stop-color="#FFF9F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="150" fill="#fffdf8" opacity=".78"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#1e2433" stroke-opacity=".12" stroke-width="10"/>
+
+  <g fill="none" stroke="#1e2433" stroke-opacity=".25" stroke-width="10" stroke-linecap="round">
+    <path d="M112 186a52 52 0 0 1 30-34"/>
+    <path d="M400 326a52 52 0 0 1-30 34"/>
+    <path d="M326 112a52 52 0 0 1 34 30"/>
+    <path d="M186 400a52 52 0 0 1-34-30"/>
+  </g>
+
+  <g stroke="#1e2433" stroke-width="11" stroke-linejoin="round">
+    <g transform="translate(143 143)">
+      <path d="M0-46C25-26 38-9 38 8a38 38 0 1 1-76 0c0-17 13-34 38-54z" fill="#ff6b5a"/>
+      <circle cx="0" cy="8" r="17" fill="#fffdf8"/>
+      <circle cx="0" cy="8" r="7" fill="#ff6b5a"/>
+    </g>
+    <g transform="translate(369 143) rotate(90)">
+      <path d="M0-46C25-26 38-9 38 8a38 38 0 1 1-76 0c0-17 13-34 38-54z" fill="#21b6a8"/>
+      <circle cx="0" cy="8" r="17" fill="#fffdf8"/>
+      <circle cx="0" cy="8" r="7" fill="#21b6a8"/>
+    </g>
+    <g transform="translate(369 369) rotate(180)">
+      <path d="M0-46C25-26 38-9 38 8a38 38 0 1 1-76 0c0-17 13-34 38-54z" fill="#7c5cff"/>
+      <circle cx="0" cy="8" r="17" fill="#fffdf8"/>
+      <circle cx="0" cy="8" r="7" fill="#7c5cff"/>
+    </g>
+    <g transform="translate(143 369) rotate(270)">
+      <path d="M0-46C25-26 38-9 38 8a38 38 0 1 1-76 0c0-17 13-34 38-54z" fill="#3d6fb4"/>
+      <circle cx="0" cy="8" r="17" fill="#fffdf8"/>
+      <circle cx="0" cy="8" r="7" fill="#3d6fb4"/>
+    </g>
+  </g>
+
+  <g fill="#ffb703" stroke="#1e2433" stroke-width="10" stroke-linejoin="round">
+    <path d="M256 210c8 28 20 40 48 48-28 8-40 20-48 48-8-28-20-40-48-48 28-8 40-20 48-48z"/>
+  </g>
+  <circle cx="256" cy="258" r="7" fill="#fffdf8" stroke="none"/>
+</svg>

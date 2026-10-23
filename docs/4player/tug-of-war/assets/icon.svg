@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Two versus two Tug of War game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF1D6"/>
+      <stop offset="1" stop-color="#FFF9F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M0 360c82-26 156-24 256 4 92 26 170 22 256-6v154H0z" fill="#F6E7CE"/>
+  <path d="M54 256c68 24 128 22 202 0 74-22 132-20 202 2" fill="none" stroke="#1e2433" stroke-width="20" stroke-linecap="round"/>
+  <path d="M54 256c68 24 128 22 202 0 74-22 132-20 202 2" fill="none" stroke="#d9a86c" stroke-width="11" stroke-linecap="round" stroke-dasharray="10 18"/>
+
+  <g stroke="#1e2433" stroke-width="11" stroke-linejoin="round">
+    <circle cx="102" cy="260" r="30" fill="#ff6b5a"/>
+    <circle cx="154" cy="272" r="30" fill="#e09a00"/>
+    <circle cx="358" cy="262" r="30" fill="#21b6a8"/>
+    <circle cx="410" cy="250" r="30" fill="#7c5cff"/>
+  </g>
+  <g fill="#fffdf8" stroke="none">
+    <circle cx="102" cy="260" r="9"/>
+    <circle cx="154" cy="272" r="9"/>
+    <circle cx="358" cy="262" r="9"/>
+    <circle cx="410" cy="250" r="9"/>
+  </g>
+
+  <g stroke="#1e2433" stroke-width="12" stroke-linejoin="round">
+    <circle cx="256" cy="258" r="45" fill="#fffdf8"/>
+    <circle cx="256" cy="258" r="20" fill="#ffb703"/>
+  </g>
+  <path d="M218 214l-26-28M294 214l26-28" fill="none" stroke="#1e2433" stroke-width="11" stroke-linecap="round"/>
+  <path d="M192 186l-8 32 32-6M320 186l8 32-32-6" fill="none" stroke="#1e2433" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

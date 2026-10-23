@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Four-player Paint Fight game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF1D6"/>
+      <stop offset="1" stop-color="#FFF9F0"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="170" fill="#fffdf8" opacity=".72"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#1e2433" stroke-opacity=".12" stroke-width="10"/>
+
+  <g stroke="#1e2433" stroke-width="12" stroke-linejoin="round">
+    <path d="M148 100c19 26 32 45 32 62a32 32 0 0 1-64 0c0-17 13-36 32-62z" fill="#ff6b5a"/>
+    <path d="M364 100c19 26 32 45 32 62a32 32 0 0 1-64 0c0-17 13-36 32-62z" fill="#21b6a8"/>
+    <path d="M148 350c19 26 32 45 32 62a32 32 0 0 1-64 0c0-17 13-36 32-62z" fill="#7c5cff"/>
+    <path d="M364 350c19 26 32 45 32 62a32 32 0 0 1-64 0c0-17 13-36 32-62z" fill="#3d6fb4"/>
+  </g>
+
+  <g fill="url(#shine)" aria-hidden="true">
+    <ellipse cx="137" cy="143" rx="10" ry="15" transform="rotate(-28 137 143)"/>
+    <ellipse cx="353" cy="143" rx="10" ry="15" transform="rotate(-28 353 143)"/>
+    <ellipse cx="137" cy="393" rx="10" ry="15" transform="rotate(-28 137 393)"/>
+    <ellipse cx="353" cy="393" rx="10" ry="15" transform="rotate(-28 353 393)"/>
+  </g>
+
+  <g fill="#ffb703" stroke="#1e2433" stroke-width="11" stroke-linejoin="round">
+    <path d="M256 184c10 34 24 48 58 58-34 10-48 24-58 58-10-34-24-48-58-58 34-10 48-24 58-58z"/>
+  </g>
+  <circle cx="256" cy="242" r="9" fill="#fffdf8" stroke="none"/>
+  <path d="M216 304c10 14 22 20 40 20s30-6 40-20" fill="none" stroke="#1e2433" stroke-width="10" stroke-linecap="round"/>
+</svg>

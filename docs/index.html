@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FFF9F0">
-  <meta name="description" content="Twenty free mini games for one, two, or four players. Play 2048, Solitaire, Chess, Checkers, Pool, Snakes, Whack-a-Mole, and more in your browser.">
+  <meta name="description" content="Twenty-three free mini games for one, two, or four players. Play 2048, Solitaire, Chess, Pool, Snakes, Paint Fight, Spinner War, Whack-a-Mole, and more in your browser.">
   <title>Mini Games · One phone, four players</title>
   <link rel="icon" href="1player/2048/assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
@@ -30,7 +30,7 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Free browser arcade · no install</p>
         <h1>One phone.<br><span class="highlight">Four players.</span></h1>
-        <p class="lede">Twenty tiny games for the queue, the bus, or the dinner table. Pass the phone, split the screen, settle the score.</p>
+        <p class="lede">Twenty-three tiny games for the queue, the bus, or the dinner table. Pass the phone, split the screen, settle the score.</p>
         <div class="hero-actions">
           <a class="btn btn--primary" href="#games">
             Browse the games
@@ -39,7 +39,7 @@
           <a class="btn btn--ghost" href="1player/2048/">Quick play: 2048</a>
         </div>
         <dl class="hero-stats">
-          <div><dt>20</dt><dd>games</dd></div>
+          <div><dt>23</dt><dd>games</dd></div>
           <div><dt>1–4</dt><dd>players</dd></div>
           <div><dt>0</dt><dd>installs</dd></div>
         </dl>
@@ -80,10 +80,10 @@
           <h2>Pick a game</h2>
         </div>
         <div class="filters" role="group" aria-label="Filter by player count">
-          <button data-filter="all" class="is-active" aria-pressed="true">All <span>20</span></button>
+          <button data-filter="all" class="is-active" aria-pressed="true">All <span>23</span></button>
           <button data-filter="1" aria-pressed="false">1P <span>6</span></button>
           <button data-filter="2" aria-pressed="false">2P <span>12</span></button>
-          <button data-filter="4" aria-pressed="false">4P <span>2</span></button>
+          <button data-filter="4" aria-pressed="false">4P <span>5</span></button>
         </div>
       </div>
 
@@ -287,6 +287,36 @@
             <span class="card-link">Play now <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </div>
         </a>
+
+        <a class="game-card game-card--wide" href="4player/paint-fight/" data-players="4" style="--accent:#FFB703; --soft:#FFF0C2; --deep:#A86200">
+          <div class="card-art"><span class="player-badge">4 players</span><img src="4player/paint-fight/assets/icon.svg" alt="" width="112" height="112" loading="lazy"><span class="art-ring" aria-hidden="true"></span></div>
+          <div class="card-body">
+            <p class="card-meta"><span>Party</span><span>45 sec</span></p>
+            <h3>Paint Fight 4P</h3>
+            <p>Four colours, one wall, forty-five seconds. Most tiles at the buzzer wins.</p>
+            <span class="card-link">Play now <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <a class="game-card game-card--wide" href="4player/spinner-war/" data-players="4" style="--accent:#7C5CFF; --soft:#EAE4FF; --deep:#5334C9">
+          <div class="card-art"><span class="player-badge">4 players</span><img src="4player/spinner-war/assets/icon.svg" alt="" width="112" height="112" loading="lazy"><span class="art-ring" aria-hidden="true"></span></div>
+          <div class="card-body">
+            <p class="card-meta"><span>Party</span><span>45 sec</span></p>
+            <h3>Spinner War 4P</h3>
+            <p>Steer your top, bump rivals off the shrinking stage, and be the last one spinning.</p>
+            <span class="card-link">Play now <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+
+        <a class="game-card game-card--wide" href="4player/tug-of-war/" data-players="4" style="--accent:#FF6B5A; --soft:#FFE6E1; --deep:#C93A2B">
+          <div class="card-art"><span class="player-badge">2v2 · 4 players</span><img src="4player/tug-of-war/assets/icon.svg" alt="" width="112" height="112" loading="lazy"><span class="art-ring" aria-hidden="true"></span></div>
+          <div class="card-body">
+            <p class="card-meta"><span>Party</span><span>30 sec</span></p>
+            <h3>Tug of War</h3>
+            <p>Two teams, one rope. Tap in rhythm to drag the knot across your line.</p>
+            <span class="card-link">Play now <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
       </div>
 
       <p class="empty-state" id="empty-state" hidden>No games in this lane yet.</p>
@@ -314,13 +344,12 @@
       <div>
         <p class="eyebrow">In the workshop</p>
         <h2>More tiny games coming</h2>
-        <p class="upcoming-copy">The long-term shelf holds 50+ classics. These are next in line after the first twenty.</p>
+        <p class="upcoming-copy">The long-term shelf holds 50+ classics. These are next in line after the first twenty-three.</p>
       </div>
       <ul class="upcoming-list">
         <li>FreeCell</li>
         <li>Ludo</li>
         <li>Archery</li>
-        <li>Spinner War</li>
         <li>Sumo</li>
         <li>Word Finder</li>
         <li>Water Sort</li>

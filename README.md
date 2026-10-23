@@ -1,6 +1,6 @@
 # Mini Games
 
-Twenty free mini games for one, two, or four players. No accounts, no ads, no install, and no network connection needed after the first load.
+Twenty-three free mini games for one, two, or four players. No accounts, no ads, no install, and no network connection needed after the first load.
 
 **Live site:** `docs/index.html` (deploy the `docs` folder with GitHub Pages)
 
@@ -28,8 +28,11 @@ Twenty free mini games for one, two, or four players. No accounts, no ads, no in
 | Memory Match | 2 | Local 2P | `docs/2player/memory-match/` |
 | Whack-a-Mole | 4 | Local 4P | `docs/4player/whack-a-mole/` |
 | Snakes 4P | 4 | Local 4P | `docs/4player/snakes/` |
+| Paint Fight 4P | 4 | Local 4P | `docs/4player/paint-fight/` |
+| Spinner War 4P | 4 | Local 4P | `docs/4player/spinner-war/` |
+| Tug of War | 4 | Local 2v2 | `docs/4player/tug-of-war/` |
 
-Catalog counts shown on the hub: **20 games — 1P 6, 2P 12, 4P 2**. Darts is the sixth 1P card because solo 501 is its primary mode; the same build also supports local 2P.
+Catalog counts shown on the hub: **23 games — 1P 6, 2P 12, 4P 5**. Darts is the sixth 1P card because solo 501 is its primary mode; the same build also supports local 2P.
 
 ## Run locally
 
@@ -57,7 +60,7 @@ All paths are relative, so the same build works at a user root or a repository s
 - Original local SVG art. Every game's assets live in its own `assets/` folder.
 - Responsive portrait and landscape layouts, including board-plus-side-panel layouts for landscape phones and 2×2/4-column party layouts.
 - Local 2P remains the default in every duel; visible `2 Players` / `vs AI` switches are used where an AI exists.
-- `docs/sw.js` pre-caches the hub and all twenty games. Navigation requests are network-first; assets are cache-first. The cache name is versioned (`mini-games-v6`) and installs refresh each core asset with `cache: 'reload'`.
+- `docs/sw.js` pre-caches the hub and all twenty-three games. Navigation requests are network-first; assets are cache-first. The cache name is versioned (`mini-games-v7`) and installs refresh each core asset with `cache: 'reload'`.
 - New games share `docs/shared/game.css` and `docs/shared/refresh.js`; every reset/rematch fades the play surface, rebuilds it, then fades back in, respecting `prefers-reduced-motion`.
 - `docs/manifest.webmanifest` provides the installable PWA metadata.
 
@@ -67,5 +70,5 @@ Design conventions, art rules, reset behavior, accessibility notes, and the defi
 
 - Engine tests: `node tests/engine-tests.mjs` (2048, Minesweeper, Sudoku).
 - Syntax: `node --check` on every JS file.
-- Static link/asset check across all twenty game folders.
+- Static link/asset check across all twenty-three game folders.
 - Browser smoke tests at 320×568, 390×844, 568×320, and 844×390, plus an offline reload of the hub and representative games.
