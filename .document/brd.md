@@ -3,7 +3,7 @@
 **Project:** `mini-games`
 **Reference:** [Offline Games – No Wifi Games](https://play.google.com/store/apps/details?id=com.JindoBlu.OfflineGames&hl=en_IN) + sibling JindoBlu titles ([2 Player games: the Challenge](https://play.google.com/store/apps/details?id=com.JindoBlu.TwoPlayerGamesChallenge), [1 2 3 4 Player Games](https://play.google.com/store/apps/details?id=com.JindoBlu.FourPlayers))
 **Platform:** Mobile-first static website, hosted on GitHub Pages, free to play, no login, no backend
-**Status:** Research / scope definition
+**Status:** 20-game slice shipped (P1 wave 1)
 **Date:** 23 Oct 2026
 
 ---
@@ -20,7 +20,7 @@ The collection is organized around **player count**, because that is the referen
 | **2 Player** | Same-device duels, split-screen or turn-based, optional AI opponent | 18 games |
 | **4 Player** | Party games for 2–4 people on one phone/tablet, plus 2v2 | 14 games |
 
-**MVP target:** 12 games (6 solo, 4 duel, 2 party) that prove the shell, input model, and art system.
+**MVP target:** 12 games (shipped), now extended to a 20-game P1 wave. Current shipped slice: 1P 6, 2P 12, 4P 2.
 **Full target:** 56 games. Every game must be playable with touch only, portrait-first, and load in under 1 second after first visit.
 
 **Non-goals for v1:** online multiplayer, accounts, leaderboards across devices, 3D, ads, in-app purchases, level editors.
@@ -317,32 +317,42 @@ Ship after every phase; GitHub Pages deploys from `/docs` on `main`.
 | Sudoku | 1 | `docs/1player/sudoku/` | Three difficulties, notes, hints, mistakes, timer, best time |
 | Minesweeper | 1 | `docs/1player/minesweeper/` | Safe first tap, flood reveal, flag mode, long-press, chord, timer, best time |
 | Word Guess | 1 | `docs/1player/word-guess/` | Six guesses, duplicate-aware scoring, on-screen QWERTY, stats, replay |
-| Tic Tac Toe | 2 | `docs/2player/tic-tac-toe/` | Pass-and-play, first to 5 round wins, winning line, draws, match reset |
-| Four in a Row | 2 | `docs/2player/four-in-a-row/` | Column preview, drop animation, four-line highlight, first to 3 rounds |
-| Ping Pong | 2 | `docs/2player/ping-pong/` | Split-court drag, W/S + arrows, first to 7, rally tracking, rematch |
-| Pool | 2 | `docs/2player/pool/` | Simplified 8-ball, drag-back aiming, power meter, pockets, ball-in-hand |
-| Snakes | 2 | `docs/2player/snakes/` | 19×19 arena, food and growth, collisions, best-of-three match |
+| Solitaire | 1 | `docs/1player/solitaire/` | Klondike draw-one, stock recycle, tableau/foundation moves, timer, win flow |
+| Darts | 1 | `docs/2player/darts/` | Solo 501 or local 2P, three-dart visits, double-out checkout, bust handling |
+| Tic Tac Toe | 2 | `docs/2player/tic-tac-toe/` | Local 2P or AI, first to 5 round wins, winning line, draws |
+| Four in a Row | 2 | `docs/2player/four-in-a-row/` | Local 2P or AI, column preview, drop animation, first to 3 rounds |
+| Ping Pong | 2 | `docs/2player/ping-pong/` | Local 2P or AI, split-court drag, W/S + arrows, first to 7 |
+| Snakes | 2 | `docs/2player/snakes/` | Local 2P or AI, 19x19 arena, food/growth, collisions, best-of-three |
+| Pool | 2 | `docs/2player/pool/` | Local 2P or AI, simplified 8-ball, drag-back aiming, pockets, ball-in-hand |
+| Air Hockey | 2 | `docs/2player/air-hockey/` | Local 2P, drag mallets, fixed-step puck physics, first to 7 |
+| Chess | 2 | `docs/2player/chess/` | Local 2P or AI, legal moves, castling, en passant, promotion, check/mate/stalemate, undo |
+| Mancala | 2 | `docs/2player/mancala/` | Local 2P, sowing, stores, extra turns, opposite-pit captures, end-game sweep |
+| Mini Golf | 2 | `docs/2player/mini-golf/` | Solo or local 2P, three holes, drag-to-putt power, walls, stroke totals |
+| Checkers | 2 | `docs/2player/checkers/` | Local 2P or AI, forced captures, multi-jumps, king promotion, undo-free rematch |
 | Paint Fight | 2 | `docs/2player/paint-fight/` | 45-second grid paint duel, two control pads, live coverage meters |
-| Memory Match | 2 | `docs/2player/memory-match/` | 4×4 pairs, turn handoff, match overlay, eight original face icons |
-| Whack-a-Mole | 3 | `docs/3player/whack-a-mole/` | Three lanes, simultaneous moles, 40-second round, podium and rematch |
+| Memory Match | 2 | `docs/2player/memory-match/` | 4x4 pairs, turn handoff, match overlay, eight original face icons |
+| Whack-a-Mole | 4 | `docs/4player/whack-a-mole/` | Four quadrants, simultaneous moles, 40-second round, podium and rematch |
+| Snakes 4P | 4 | `docs/4player/snakes/` | Four corner snakes, four colours, 2x2 touch pads, last-alive rounds, first to 2 |
 
-Landing page is `docs/index.html`, with player-count filters and links to all twelve games.
+Landing page is `docs/index.html`, with player-count filters for All 20, 1P 6, 2P 12, and 4P 2. Darts is classified as the sixth 1P card because solo 501 is its primary mode; the build also supports local 2P.
 
 ### Decisions taken
 
 - **Art sample:** none was provided, so all game and hub SVG art is original in the warm cream/ink palette defined in section 7.
 - **Build step:** zero-build vanilla HTML/CSS/ES modules, no framework and no compile step. This keeps the Pages deploy to a static `/docs` folder.
-- **MVP cut:** the first slice shipped with five games; the remaining seven MVP titles (Word Guess, Four in a Row, Ping Pong, Pool, Snakes, Paint Fight, Memory) followed in the second slice, so all twelve MVP games are now live.
-- **Reset polish:** new games use a shared fade-out/rebuild/fade-in helper for New game, reset, next round, and rematch actions. Reduced-motion users get an instant rebuild.
-- **Orientation:** portrait and landscape are both supported. Landscape uses a board-plus-side-panel grid for 2048, Sudoku, Minesweeper, Tic Tac Toe, Four in a Row, Pool, and Memory; a three-column arena for Whack-a-Mole, Snakes, Paint Fight, and Ping Pong.
+- **MVP cut:** the original 12-game slice shipped first. The current P1 wave adds eight titles: Solitaire, Air Hockey, Chess, Mancala, Mini Golf, Checkers, Darts, and Snakes 4P.
+- **Player buckets:** Whack-a-Mole moved from `docs/3player/` to `docs/4player/` and was rebuilt for four players. The old `3player` bucket is gone.
+- **AI coverage:** AI modes were added to the five existing AI-tagged duels: Tic Tac Toe, Four in a Row, Ping Pong, Snakes, and Pool. Chess and Checkers also include AI. Local 2P remains the default wherever both exist.
+- **Reset polish:** new games use the shared fade-out/rebuild/fade-in helper for New game, reset, next round, and rematch actions. Reduced-motion users get an instant rebuild.
+- **Orientation:** portrait and landscape are both supported. Landscape uses a board-plus-side-panel grid for board games, a four-column layout for Whack-a-Mole, and a canvas-plus-controls layout for Snakes 4P.
 - **Sound:** no audio in this slice; synthesized SFX remain a later polish item.
 
 ### Offline and performance
 
-- `docs/sw.js` pre-caches the hub, shared shell, and all twelve games (76 core entries) and serves navigations network-first, assets cache-first.
-- `CACHE` is versioned. Install fetches each core asset with `cache: 'reload'` so a new service-worker version cannot re-cache stale files from an older worker.
+- `docs/sw.js` pre-caches the hub, shared shell, and all twenty games. `CACHE` is now `mini-games-v6`.
+- Install fetches each core asset with `cache: 'reload'` so a new service-worker version cannot re-cache stale files from an older worker.
 - All assets are local SVGs; no external fonts, scripts, or network calls are required after first load.
-- Verified offline load of the hub plus representative new games (Word Guess, Four in a Row, Ping Pong, Pool, Snakes, Paint Fight, Memory), 320×568 portrait, 390×844 portrait, 568×320 landscape, and 844×390 landscape.
+- Static checks cover every game link and asset, and browser smoke tests cover 320x568, 390x844, 568x320, and 844x390 plus an offline reload.
 
 ### Deployment
 
@@ -352,5 +362,4 @@ Set GitHub Pages to deploy from the `master` branch, `/docs` folder (this repo c
 
 - Reference art sample for a closer style match.
 - Sound effects and haptics.
-- The remaining catalog: duels, four-player party games, and depth titles from section 3.
-
+- The remaining catalog: more duels, four-player party games, and depth titles from section 3.

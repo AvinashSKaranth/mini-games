@@ -75,6 +75,36 @@ body {
   white-space: nowrap;
 }
 
+/* mode switch */
+.mode-switch {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(30, 36, 51, .06);
+}
+
+.mode-switch button {
+  min-height: 32px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mode-switch button.is-on {
+  color: var(--ink);
+  background: #fffdf8;
+  box-shadow: 0 2px 7px -4px rgba(30, 36, 51, .5), 0 0 0 1px rgba(30, 36, 51, .06);
+}
+
 /* player cards */
 .players {
   width: 100%;

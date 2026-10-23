@@ -1,0 +1,131 @@
+.app { max-width: 620px; gap: 9px; }
+
+.turnbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,.68);
+  font-size: .8rem;
+}
+
+.turnbar .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px rgba(255,107,90,.16); }
+.turnbar.is-p2 .dot { background: var(--teal); box-shadow: 0 0 0 4px rgba(33,182,168,.16); }
+.turnbar strong { font-size: .8rem; }
+.turnbar #hint-turn { margin-left: auto; font-size: .63rem; color: var(--ink-soft); font-weight: 700; }
+
+.board-wrap { width: 100%; }
+
+.board {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 64px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "store2 top store1"
+    "store2 bottom store1";
+  gap: 7px;
+  padding: 10px;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.24), transparent 44%),
+    linear-gradient(160deg, #c58b56, #8f5a33 72%, #704326);
+  box-shadow: 0 18px 36px -22px rgba(30,36,51,.7), 0 0 0 1px rgba(30,36,51,.22);
+}
+
+.store {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 30px;
+  background: radial-gradient(ellipse at 50% 32%, #1b0f08, #3e2617 70%, #6d4529);
+  box-shadow: 0 2px 0 rgba(255,255,255,.12) inset, 0 8px 16px -10px rgba(0,0,0,.8);
+  color: #fff9f0;
+  min-height: 0;
+}
+
+.store--p2 { grid-area: store2; }
+.store--p1 { grid-area: store1; }
+.store span { font-size: .52rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .72; }
+.store b { font-size: 1.55rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.store.is-own { box-shadow: 0 0 0 3px var(--amber) inset, 0 8px 16px -10px rgba(0,0,0,.8); }
+
+.pit-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  min-height: 0;
+}
+
+.pit-row--top { grid-area: top; }
+.pit-row--bottom { grid-area: bottom; }
+
+.pit {
+  position: relative;
+  min-height: 74px;
+  border: 0;
+  border-radius: 50% / 46%;
+  padding: 0;
+  background: radial-gradient(ellipse at 50% 38%, #1b0f08, #402818 70%, #70472b);
+  box-shadow: 0 2px 0 rgba(255,255,255,.1) inset, 0 5px 10px -7px rgba(0,0,0,.8);
+  color: #fff9f0;
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.pit:hover:not(:disabled) { transform: translateY(-2px); }
+.pit:disabled { cursor: default; }
+.pit.is-own:not(:disabled) { box-shadow: 0 0 0 3px var(--amber) inset, 0 5px 10px -7px rgba(0,0,0,.8); }
+.pit.is-own:not(:disabled):hover { transform: translateY(-2px) scale(1.02); }
+.pit.is-empty { opacity: .78; }
+
+.pit b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+.pit .stones {
+  position: absolute;
+  inset: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.pit .stones i { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); box-shadow: 0 1px 1px rgba(0,0,0,.5); }
+
+.pit.bump { animation: pit-bump .2s ease; }
+@keyframes pit-bump { 50% { transform: scale(1.08); } }
+
+@media (max-width: 380px) {
+  .board { grid-template-columns: 52px minmax(0,1fr) 52px; gap: 5px; padding: 8px; }
+  .pit { min-height: 62px; border-radius: 18px; }
+  .pit b { font-size: 1rem; }
+  .store b { font-size: 1.25rem; }
+  .turnbar #hint-turn { display: none; }
+}
+
+@media (orientation: landscape) and (max-height: 620px) {
+  .app { max-width: 900px; display: grid; grid-template-columns: minmax(0, 1fr) 230px; grid-template-rows: auto auto 1fr auto; gap: 6px 12px; }
+  .topbar { grid-column: 1 / -1; }
+  .turnbar { grid-column: 2; grid-row: 2; }
+  .board-wrap { grid-column: 1; grid-row: 2 / 5; align-self: center; }
+  .board { max-width: 620px; margin: 0 auto; }
+  .board-wrap .hint { display: none; }
+  .status { display: none; }
+}

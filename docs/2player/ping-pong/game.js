@@ -18,6 +18,9 @@ const scoreP1 = $('score-p1');
 const scoreP2 = $('score-p2');
 const cardP1 = $('card-p1');
 const cardP2 = $('card-p2');
+const nameP2 = $('name-p2');
+const helpP2 = $('help-p2');
+const modeButtons = [...document.querySelectorAll('.mode-switch button')];
 
 const TARGET = 7;
 const STEP = 1 / 120;
@@ -50,6 +53,11 @@ let lastTime = 0;
 let accumulator = 0;
 let hidden = document.hidden;
 let reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+let mode = '2p';
+let aiTarget = 0;
+let aiError = 0;
+let aiReact = 0;
+let aiOffset = 0;
 
 let courtGrad = null;
 let glowLeft = null;
@@ -202,17 +210,32 @@ function startMatch() {
   left.cy = H / 2;
   right.cy = H / 2;
   clampPaddles();
+  aiTarget = H / 2;
+  aiError = 0;
+  aiReact = 0;
+  aiOffset = 0;
   beginServe();
-  statusEl.textContent = 'New match. Player 1 serves. First to 7 wins.';
+  statusEl.textContent = mode === '2p'
+    ? 'New match. Player 1 serves. First to 7 wins.'
+    : 'New match against the computer. You are Player 1. First to 7 wins.';
+}
+
+function playerName(who) {
+  return who === 2 && mode === 'ai' ? 'Computer' : `Player ${who}`;
 }
 
 function updateHud() {
   scoreP1.textContent = String(scores.p1);
   scoreP2.textContent = String(scores.p2);
   rallyEl.textContent = String(rally);
+  nameP2.textContent = mode === 'ai' ? 'Computer' : 'Player 2';
+  helpP2.textContent = mode === 'ai' ? 'AI paddle' : '↑ / ↓';
   cardP1.classList.toggle('is-serving', state !== 'over' && server === 1);
   cardP2.classList.toggle('is-serving', state !== 'over' && server === 2);
-  hud.setAttribute('aria-label', `Player 1: ${scores.p1}. Player 2: ${scores.p2}. Rally ${rally}.`);
+  hud.setAttribute('aria-label', `${playerName(1)}: ${scores.p1}. ${playerName(2)}: ${scores.p2}. Rally ${rally}.`);
+  canvas.setAttribute('aria-label', mode === 'ai'
+    ? 'Ping pong court against the computer. Drag the left half or use W and S.'
+    : 'Ping pong court. Player 1 controls the left paddle, Player 2 controls the right paddle.');
 }
 
 function showCallout(text, go) {
@@ -242,6 +265,36 @@ function launchServe() {
   showCallout('Serve!', true);
 }
 
+function predictBallY() {
+  if (state !== 'play' || ball.vx <= 0) return H / 2;
+
+  const targetX = right.x - ball.r;
+  const time = (targetX - ball.x) / ball.vx;
+  if (time < 0 || time > 2.4) return H / 2;
+
+  const span = Math.max(20, H - ball.r * 2);
+  let y = ball.y + ball.vy * time - ball.r;
+  y = ((y % (span * 2)) + span * 2) % (span * 2);
+  if (y > span) y = span * 2 - y;
+  return y + ball.r;
+}
+
+function moveAiPaddle(dt) {
+  aiReact -= dt;
+  if (aiReact <= 0) {
+    aiReact = 0.11 + Math.random() * 0.1;
+    aiOffset = (Math.random() * 2 - 1) * H * 0.028;
+    const lead = predictBallY() + aiOffset;
+    const blocked = state === 'serve' ? H / 2 : lead;
+    aiTarget = blocked;
+    aiError = (Math.random() * 2 - 1) * H * 0.06;
+  }
+
+  const aim = clamp(aiTarget + aiError, right.h / 2 + 3, H - right.h / 2 - 3);
+  const maxStep = H * 0.92 * dt;
+  right.cy += clamp(aim - right.cy, -maxStep, maxStep);
+}
+
 function movePaddles(dt) {
   const speed = H * 1.12;
   let dy = 0;
@@ -249,10 +302,14 @@ function movePaddles(dt) {
   if (keys.has('s')) dy += 1;
   left.cy += dy * speed * dt;
 
-  dy = 0;
-  if (keys.has('arrowup')) dy -= 1;
-  if (keys.has('arrowdown')) dy += 1;
-  right.cy += dy * speed * dt;
+  if (mode === 'ai') {
+    moveAiPaddle(dt);
+  } else {
+    dy = 0;
+    if (keys.has('arrowup')) dy -= 1;
+    if (keys.has('arrowdown')) dy += 1;
+    right.cy += dy * speed * dt;
+  }
 
   clampPaddles();
   left.flash = Math.max(0, left.flash - dt * 3.4);
@@ -387,7 +444,7 @@ function scorePoint(who) {
   if (total % 2 === 0) server = server === 1 ? 2 : 1;
 
   beginServe();
-  statusEl.textContent = `Player ${who} scores. ${scores.p1} to ${scores.p2}. Player ${server} serves.`;
+  statusEl.textContent = `${playerName(who)} scores. ${scores.p1} to ${scores.p2}. ${playerName(server)} serves.`;
 }
 
 function winMatch(who) {
@@ -398,10 +455,10 @@ function winMatch(who) {
   ball.speed = 0;
   updateHud();
 
-  veilTitle.textContent = `Player ${who} wins!`;
-  veilCopy.textContent = `${scores.p1} – ${scores.p2} · longest rally ${bestRally}`;
+  veilTitle.textContent = `${playerName(who)} wins!`;
+  veilCopy.textContent = `${scores.p1} - ${scores.p2} · longest rally ${bestRally}`;
   veil.hidden = false;
-  statusEl.textContent = `Player ${who} wins the match, ${scores.p1} to ${scores.p2}. Longest rally ${bestRally}.`;
+  statusEl.textContent = `${playerName(who)} wins the match, ${scores.p1} to ${scores.p2}. Longest rally ${bestRally}.`;
   requestAnimationFrame(() => {
     if (!veil.hidden) $('veil-primary').focus({ preventScroll: true });
   });
@@ -658,6 +715,7 @@ canvas.addEventListener('pointerdown', (event) => {
   if (state === 'over') return;
   const rect = canvas.getBoundingClientRect();
   const side = event.clientX - rect.left < rect.width / 2 ? 'left' : 'right';
+  if (mode === 'ai' && side === 'right') return;
   pointers.set(event.pointerId, side);
   try {
     canvas.setPointerCapture(event.pointerId);
@@ -687,7 +745,7 @@ canvas.addEventListener('lostpointercapture', endPointer);
 window.addEventListener('keydown', (event) => {
   if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
   const key = event.key.toLowerCase();
-  if (key === 'w' || key === 's' || key === 'arrowup' || key === 'arrowdown') {
+  if (key === 'w' || key === 's' || (mode === '2p' && (key === 'arrowup' || key === 'arrowdown'))) {
     event.preventDefault();
     keys.add(key);
   }
@@ -728,6 +786,17 @@ $('reset').addEventListener('click', () => requestMatch(court, false));
 $('new-match').addEventListener('click', () => requestMatch(court, false));
 $('veil-primary').addEventListener('click', () => requestMatch(court, true));
 $('veil-reset').addEventListener('click', () => requestMatch(app, true));
+
+modeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.dataset.mode === mode) return;
+    mode = button.dataset.mode;
+    modeButtons.forEach((item) => item.classList.toggle('is-on', item === button));
+    keys.clear();
+    pointers.clear();
+    requestMatch(court, true);
+  });
+});
 
 document.addEventListener('visibilitychange', onVisibilityChange);
 

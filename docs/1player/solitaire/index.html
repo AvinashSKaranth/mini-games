@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play Klondike Solitaire on one device. Draw, build alternating colours, and send all four suits home.">
+  <title>Solitaire · 1 Player · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div><h1>Solitaire</h1><p>1 player · Klondike</p></div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Deal a new game">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="scorebar">
+      <span><b id="moves">0</b> moves</span>
+      <span><b id="time">0:00</b></span>
+      <span><b id="remaining">52</b> cards left</span>
+    </div>
+
+    <div class="table" id="table">
+      <section class="top-row" aria-label="Stock, waste, and foundations">
+        <button class="slot stock" id="stock" type="button" aria-label="Draw from stock"></button>
+        <button class="slot waste" id="waste" type="button" aria-label="Waste pile"></button>
+        <span class="top-gap" aria-hidden="true"></span>
+        <div class="foundation" id="foundation-0" data-foundation="0" aria-label="Spades foundation"></div>
+        <div class="foundation" id="foundation-1" data-foundation="1" aria-label="Hearts foundation"></div>
+        <div class="foundation" id="foundation-2" data-foundation="2" aria-label="Diamonds foundation"></div>
+        <div class="foundation" id="foundation-3" data-foundation="3" aria-label="Clubs foundation"></div>
+      </section>
+
+      <section class="tableau" id="tableau" aria-label="Tableau"></section>
+    </div>
+
+    <div class="actions">
+      <p class="hint" id="hint">Tap the stock to draw. Tap a card, then a destination.</p>
+      <button class="btn btn--ghost" id="new-game" type="button">New deal</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow">All four suits home</p>
+      <h2 id="veil-title">You won!</h2>
+      <p id="veil-copy">Finished in 0 moves.</p>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="rematch" type="button">New deal</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../../sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>

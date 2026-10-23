@@ -46,6 +46,34 @@ body {
   white-space: nowrap;
 }
 
+.mode-switch {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 12px;
+  background: rgba(30, 36, 51, .065);
+}
+
+.mode-switch button {
+  min-height: 28px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: .64rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mode-switch button.is-on {
+  color: var(--ink);
+  background: #fffdf8;
+  box-shadow: 0 2px 7px -4px rgba(30, 36, 51, .5), 0 0 0 1px rgba(30, 36, 51, .06);
+}
+
 .scoreboard {
   width: 100%;
   display: grid;
@@ -274,6 +302,9 @@ canvas {
   user-select: none;
 }
 
+.controls.is-ai .pad-group--p2 { display: none; }
+.controls.is-ai { justify-content: center; }
+
 .pad-group {
   --accent: var(--coral);
   display: flex;
@@ -376,6 +407,12 @@ canvas {
 
 @media (max-height: 560px) and (orientation: portrait) {
   .arena-wrap { width: min(100%, 40dvh); }
+  .dpad { --pad: 112px; }
+  .pad-label { display: none; }
+}
+
+@media (max-height: 600px) and (orientation: portrait) {
+  .arena-wrap { width: min(100%, 37dvh); }
   .dpad { --pad: 112px; }
   .pad-label { display: none; }
 }

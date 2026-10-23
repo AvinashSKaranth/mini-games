@@ -34,7 +34,7 @@
         <div class="player player--p1 is-active" id="player-1">
           <span class="pball is-open" id="ball-1" aria-hidden="true"><b id="ball-num-1">?</b></span>
           <span class="who">
-            <strong>Player 1</strong>
+            <strong id="name-1">Player 1</strong>
             <small id="group-1">Open table</small>
           </span>
           <span class="count"><b id="left-1">—</b><small id="count-label-1"></small></span>
@@ -42,12 +42,17 @@
         <div class="player player--p2" id="player-2">
           <span class="pball is-open" id="ball-2" aria-hidden="true"><b id="ball-num-2">?</b></span>
           <span class="who">
-            <strong>Player 2</strong>
+            <strong id="name-2">Player 2</strong>
             <small id="group-2">Open table</small>
           </span>
           <span class="count"><b id="left-2">—</b><small id="count-label-2"></small></span>
         </div>
       </section>
+
+      <div class="mode-switch" role="group" aria-label="Opponent">
+        <button type="button" data-mode="2p" class="is-on">2 Players</button>
+        <button type="button" data-mode="ai">vs AI</button>
+      </div>
 
       <p class="message" id="status" role="status" aria-live="polite">Player 1 breaks. Drag back anywhere on the table, then release.</p>
     </div>

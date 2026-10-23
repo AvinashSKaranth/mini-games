@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" role="img" aria-label="King crown">
+  <path d="M7 38 3 13l14 10L32 5l15 18 14-10-4 25z" fill="#FFD166" stroke="#1E2433" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M9 38h46" stroke="#1E2433" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="25" r="5" fill="#FF6B5A" stroke="#1E2433" stroke-width="3"/>
+</svg>

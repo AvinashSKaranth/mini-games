@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play 501 Darts on one device. Tap the board, finish on a double, and check out first.">
+  <title>Darts · 501 · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div><h1>Darts</h1><p>501 · double out</p></div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Start a new game">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="difficulty" role="group" aria-label="Game mode">
+      <button type="button" data-mode="solo" class="is-active">Solo 501</button>
+      <button type="button" data-mode="duo">2 Players</button>
+    </div>
+
+    <section class="hud" aria-label="Scores">
+      <div class="player player--p1 is-active" id="card-1"><span class="dot"></span><span><strong>Player 1</strong><small id="left-1">501 to go</small></span><b id="score-1">501</b></div>
+      <div class="player player--p2" id="card-2"><span class="dot"></span><span><strong>Player 2</strong><small id="left-2">501 to go</small></span><b id="score-2">501</b></div>
+    </section>
+
+    <div class="board-wrap" id="board-wrap">
+      <canvas id="board" width="420" height="420" role="application" aria-label="Dartboard. Tap where your dart lands."></canvas>
+      <div class="turn-pill" id="turn-pill">3 darts left</div>
+    </div>
+
+    <div class="actions">
+      <p class="hint">Tap the board to throw. Finish exactly on zero with a double or the bull.</p>
+      <button class="btn btn--ghost" id="new-game" type="button">New game</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow">Checkout</p>
+      <h2 id="veil-title">Player 1 wins!</h2>
+      <p id="veil-copy">Finished in 18 darts.</p>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="rematch" type="button">Play again</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../../sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>

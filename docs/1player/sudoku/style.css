@@ -392,6 +392,12 @@ body {
   .brand p { display: none; }
 }
 
+@media (max-height: 600px) and (orientation: portrait) {
+  .app { gap: 6px; }
+  .keypad button { min-height: 38px; }
+  .meta div { padding: 5px 10px; }
+}
+
 @media (orientation: landscape) and (max-height: 600px) {
   .app {
     max-width: 920px;

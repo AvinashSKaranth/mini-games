@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Four-player Snakes on one device. Four snakes, four colours, one arena. Eat, grow, and be the last trail alive.">
+  <title>Snakes 4P · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Snakes 4P</h1>
+          <p>4 players · last trail wins</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Reset the match">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="hud">
+      <div class="matchbar">
+        <span id="round-label">Round 1</span>
+        <span class="target">First to 2 round wins</span>
+      </div>
+
+      <section class="scoreboard" aria-label="Match scoreboard">
+        <div class="player player--p1" id="player-1">
+          <span class="who"><strong>Player 1</strong><small><span id="score-1">0</span> pts</small></span>
+          <span class="wins"><b id="wins-1">0</b><small>wins</small></span>
+        </div>
+        <div class="player player--p2" id="player-2">
+          <span class="who"><strong>Player 2</strong><small><span id="score-2">0</span> pts</small></span>
+          <span class="wins"><b id="wins-2">0</b><small>wins</small></span>
+        </div>
+        <div class="player player--p3" id="player-3">
+          <span class="who"><strong>Player 3</strong><small><span id="score-3">0</span> pts</small></span>
+          <span class="wins"><b id="wins-3">0</b><small>wins</small></span>
+        </div>
+        <div class="player player--p4" id="player-4">
+          <span class="who"><strong>Player 4</strong><small><span id="score-4">0</span> pts</small></span>
+          <span class="wins"><b id="wins-4">0</b><small>wins</small></span>
+        </div>
+      </section>
+    </div>
+
+    <div class="arena-block" id="arena-block">
+      <div class="arena-wrap">
+        <canvas id="arena" width="760" height="760" role="img" aria-label="Four-player snake arena, 19 by 19 cells. Coral starts left, teal right, violet top, and amber bottom."></canvas>
+        <div class="countdown" id="countdown" aria-hidden="true"><span id="countdown-num">3</span></div>
+        <div class="round-overlay" id="round-overlay" hidden>
+          <div class="round-card">
+            <p class="eyebrow" id="round-eyebrow">Round 1</p>
+            <h2 id="round-title">Player 1 wins</h2>
+            <p id="round-copy">Match score 1 · 0 · 0 · 0</p>
+            <button class="btn btn--primary" id="next-round" type="button">Next round</button>
+          </div>
+        </div>
+      </div>
+      <p class="hint">Eat amber fruit to grow. Walls, tails, and every rival snake are deadly.</p>
+    </div>
+
+    <div class="controls" role="group" aria-label="Touch controls">
+      <div class="pad-group pad-group--p1">
+        <div class="dpad" role="group" aria-label="Player 1 movement, coral">
+          <button class="dpad-btn dpad-btn--up" type="button" data-player="0" data-dir="up" aria-label="Player 1 up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--left" type="button" data-player="0" data-dir="left" aria-label="Player 1 left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="dpad-core" aria-hidden="true">P1</span>
+          <button class="dpad-btn dpad-btn--right" type="button" data-player="0" data-dir="right" aria-label="Player 1 right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--down" type="button" data-player="0" data-dir="down" aria-label="Player 1 down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <span class="pad-label">P1 · WASD</span>
+      </div>
+
+      <div class="pad-group pad-group--p2">
+        <div class="dpad" role="group" aria-label="Player 2 movement, teal">
+          <button class="dpad-btn dpad-btn--up" type="button" data-player="1" data-dir="up" aria-label="Player 2 up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--left" type="button" data-player="1" data-dir="left" aria-label="Player 2 left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="dpad-core" aria-hidden="true">P2</span>
+          <button class="dpad-btn dpad-btn--right" type="button" data-player="1" data-dir="right" aria-label="Player 2 right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--down" type="button" data-player="1" data-dir="down" aria-label="Player 2 down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <span class="pad-label">P2 · Arrows</span>
+      </div>
+
+      <div class="pad-group pad-group--p3">
+        <div class="dpad" role="group" aria-label="Player 3 movement, violet">
+          <button class="dpad-btn dpad-btn--up" type="button" data-player="2" data-dir="up" aria-label="Player 3 up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--left" type="button" data-player="2" data-dir="left" aria-label="Player 3 left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="dpad-core" aria-hidden="true">P3</span>
+          <button class="dpad-btn dpad-btn--right" type="button" data-player="2" data-dir="right" aria-label="Player 3 right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--down" type="button" data-player="2" data-dir="down" aria-label="Player 3 down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <span class="pad-label">P3 · IJKL</span>
+      </div>
+
+      <div class="pad-group pad-group--p4">
+        <div class="dpad" role="group" aria-label="Player 4 movement, amber">
+          <button class="dpad-btn dpad-btn--up" type="button" data-player="3" data-dir="up" aria-label="Player 4 up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--left" type="button" data-player="3" data-dir="left" aria-label="Player 4 left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="dpad-core" aria-hidden="true">P4</span>
+          <button class="dpad-btn dpad-btn--right" type="button" data-player="3" data-dir="right" aria-label="Player 4 right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="dpad-btn dpad-btn--down" type="button" data-player="3" data-dir="down" aria-label="Player 4 down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8l6 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <span class="pad-label">P4 · TFGH</span>
+      </div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="match-veil" hidden>
+    <div class="veil-card">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow">Match complete</p>
+      <h2 id="veil-title">Player 1 wins!</h2>
+      <p id="veil-copy">2 · 1 · 0 · 0 in three rounds.</p>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="rematch" type="button">Rematch</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../../sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>

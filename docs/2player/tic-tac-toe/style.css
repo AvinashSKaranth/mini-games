@@ -104,6 +104,36 @@ body {
   background: rgba(30, 36, 51, .07);
 }
 
+/* mode switch */
+.mode-switch {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(30, 36, 51, .06);
+}
+
+.mode-switch button {
+  min-height: 34px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mode-switch button.is-on {
+  color: var(--ink);
+  background: #fffdf8;
+  box-shadow: 0 2px 7px -4px rgba(30, 36, 51, .5), 0 0 0 1px rgba(30, 36, 51, .06);
+}
+
 /* player cards */
 .players { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
@@ -371,7 +401,7 @@ body {
 
 @media (max-height: 700px) {
   .app { gap: 7px; }
-  .board { width: min(92vw, 420px, 44dvh); }
+  .board { width: min(92vw, 420px, 43dvh); }
   .brand p { display: none; }
   .hint { display: none; }
 }
@@ -392,7 +422,7 @@ body {
   }
 
   .topbar { grid-area: top; align-self: start; }
-  .board-wrap { grid-area: board; width: min(78dvh, 46vw); }
+  .board-wrap { grid-area: board; width: min(72dvh, 44vw); }
   .board { width: 100%; }
   .side-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 440px; }
   .side-panel--top { grid-area: stop; align-self: end; }
@@ -403,6 +433,14 @@ body {
   .turnbar { min-height: 38px; }
   .actions { flex-direction: row; justify-content: space-between; }
   .resultbar .btn { min-height: 34px; }
+}
+
+@media (orientation: landscape) and (max-height: 360px) {
+  .app { gap: 4px; padding-top: 6px; padding-bottom: 6px; }
+  .matchbar { display: none; }
+  .player { padding: 5px 8px; }
+  .turnbar { min-height: 32px; }
+  .actions .btn { min-height: 34px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

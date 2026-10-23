@@ -18,6 +18,7 @@ const colsEl = $('cols');
 const roundLabel = $('round-label');
 const player1 = $('player-1');
 const player2 = $('player-2');
+const player2Name = $('name-2');
 const score1 = $('score-1');
 const score2 = $('score-2');
 const turnbar = $('turnbar');
@@ -30,6 +31,7 @@ const veil = $('veil');
 const veilTitle = $('veil-title');
 const veilCopy = $('veil-copy');
 const veilRematch = $('veil-rematch');
+const modeButtons = [...document.querySelectorAll('.mode-switch button')];
 
 const holes = [];
 const colButtons = [];
@@ -43,10 +45,25 @@ let scores = { 1: 0, 2: 0 };
 let result = null;
 let matchOver = false;
 let matchTimer = 0;
+let mode = '2p';
+let aiTimer = null;
+let aiToken = 0;
 
 const other = (player) => (player === 1 ? 2 : 1);
-
 const reducedMotion = () => Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+const nameOf = (player) => player === 2 && mode !== '2p' ? 'Computer' : NAME[player];
+
+function isAiTurn() {
+  return mode !== '2p' && turn === 2 && !result && !matchOver;
+}
+
+function clearAi() {
+  aiToken += 1;
+  if (aiTimer !== null) {
+    window.clearTimeout(aiTimer);
+    aiTimer = null;
+  }
+}
 
 function buildBoard() {
   for (let r = 0; r < ROWS; r += 1) {
@@ -82,14 +99,18 @@ function clearBoard() {
   holes.forEach((hole) => hole.classList.remove('is-win'));
 }
 
-function landingRow(c) {
+function landingRowOn(b, c) {
   for (let r = ROWS - 1; r >= 0; r -= 1) {
-    if (!board[c][r]) return r;
+    if (!b[c][r]) return r;
   }
   return -1;
 }
 
-function findWin(c, r, player) {
+function landingRow(c) {
+  return landingRowOn(board, c);
+}
+
+function findWin(c, r, player, b = board) {
   for (const [dc, dr] of DIRS) {
     const run = [{ c, r }];
 
@@ -97,7 +118,7 @@ function findWin(c, r, player) {
       let cc = c + dc * direction;
       let rr = r + dr * direction;
 
-      while (cc >= 0 && cc < COLS && rr >= 0 && rr < ROWS && board[cc][rr] === player) {
+      while (cc >= 0 && cc < COLS && rr >= 0 && rr < ROWS && b[cc][rr] === player) {
         if (direction === -1) run.unshift({ c: cc, r: rr });
         else run.push({ c: cc, r: rr });
         cc += dc * direction;
@@ -151,19 +172,20 @@ function render() {
   roundLabel.textContent = `Round ${round}`;
   score1.textContent = String(scores[1]);
   score2.textContent = String(scores[2]);
+  player2Name.textContent = mode === '2p' ? 'Player 2' : 'Computer';
 
   player1.classList.toggle('is-active', !result && !matchOver && turn === 1);
   player2.classList.toggle('is-active', !result && !matchOver && turn === 2);
 
   turnbar.hidden = Boolean(result);
   turnbar.classList.toggle('is-p2', turn === 2);
-  turnText.textContent = `${NAME[turn]}'s turn`;
+  turnText.textContent = `${nameOf(turn)}'s turn`;
 
   resultbar.hidden = !result || matchOver;
 
   if (result) {
     resultText.textContent = result.type === 'win'
-      ? `${NAME[result.player]} wins round ${round}`
+      ? `${nameOf(result.player)} wins round ${round}`
       : `Round ${round} is a draw`;
   }
 
@@ -178,7 +200,7 @@ function render() {
     }
   }
 
-  const locked = Boolean(result) || matchOver;
+  const locked = Boolean(result) || matchOver || isAiTurn();
   colsEl.classList.toggle('is-p2', turn === 2);
   colsEl.classList.toggle('is-p1', turn === 1);
 
@@ -200,8 +222,138 @@ function focusColumn(index) {
   target?.focus({ preventScroll: true });
 }
 
-function place(c) {
+function windowScore(b, player) {
+  const opponent = other(player);
+  let score = 0;
+
+  const evaluate = (cells) => {
+    let mine = 0;
+    let theirs = 0;
+    let empty = 0;
+    for (const value of cells) {
+      if (value === player) mine += 1;
+      else if (value === opponent) theirs += 1;
+      else empty += 1;
+    }
+    if (mine && theirs) return 0;
+    if (mine === 4) return 100000;
+    if (mine === 3 && empty === 1) return 120;
+    if (mine === 2 && empty === 2) return 12;
+    if (theirs === 4) return -100000;
+    if (theirs === 3 && empty === 1) return -150;
+    if (theirs === 2 && empty === 2) return -14;
+    return 0;
+  };
+
+  for (let c = 0; c < COLS; c += 1) {
+    for (let r = 0; r < ROWS; r += 1) {
+      for (const [dc, dr] of DIRS) {
+        const cc = c + dc * 3;
+        const rr = r + dr * 3;
+        if (cc < 0 || cc >= COLS || rr < 0 || rr >= ROWS) continue;
+        const cells = [];
+        for (let step = 0; step < 4; step += 1) cells.push(b[c + dc * step][r + dr * step]);
+        score += evaluate(cells);
+      }
+    }
+  }
+  return score;
+}
+
+function search(b, depth, alpha, beta, maximizing, last) {
+  if (last) {
+    const win = findWin(last.c, last.r, last.player, b);
+    if (win) return last.player === 2 ? 100000 + depth : -100000 - depth;
+  }
+
+  const full = b.every((column) => column.every(Boolean));
+  if (depth === 0 || full) return windowScore(b, 2);
+
+  const order = [3, 2, 4, 1, 5, 0, 6];
+  if (maximizing) {
+    let best = -Infinity;
+    for (const c of order) {
+      const r = landingRowOn(b, c);
+      if (r < 0) continue;
+      b[c][r] = 2;
+      best = Math.max(best, search(b, depth - 1, alpha, beta, false, { c, r, player: 2 }));
+      b[c][r] = null;
+      alpha = Math.max(alpha, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+
+  let best = Infinity;
+  for (const c of order) {
+    const r = landingRowOn(b, c);
+    if (r < 0) continue;
+    b[c][r] = 1;
+    best = Math.min(best, search(b, depth - 1, alpha, beta, true, { c, r, player: 1 }));
+    b[c][r] = null;
+    beta = Math.min(beta, best);
+    if (beta <= alpha) break;
+  }
+  return best;
+}
+
+function bestAiColumn() {
+  const playable = [];
+  for (let c = 0; c < COLS; c += 1) {
+    if (landingRow(c) >= 0) playable.push(c);
+  }
+  if (!playable.length) return -1;
+
+  for (const c of playable) {
+    const r = landingRow(c);
+    board[c][r] = 2;
+    const wins = findWin(c, r, 2);
+    board[c][r] = null;
+    if (wins) return c;
+  }
+
+  for (const c of playable) {
+    const r = landingRow(c);
+    board[c][r] = 1;
+    const blocks = findWin(c, r, 1);
+    board[c][r] = null;
+    if (blocks) return c;
+  }
+
+  const work = board.map((column) => column.slice());
+  let best = -Infinity;
+  const choices = [];
+  for (const c of playable) {
+    const r = landingRowOn(work, c);
+    work[c][r] = 2;
+    const score = search(work, 4, -Infinity, Infinity, false, { c, r, player: 2 });
+    work[c][r] = null;
+    if (score > best) {
+      best = score;
+      choices.length = 0;
+      choices.push(c);
+    } else if (score === best) {
+      choices.push(c);
+    }
+  }
+  return choices[Math.floor(Math.random() * choices.length)];
+}
+
+function scheduleAi() {
+  clearAi();
+  if (!isAiTurn()) return;
+  const token = aiToken;
+  aiTimer = window.setTimeout(() => {
+    aiTimer = null;
+    if (token !== aiToken || !isAiTurn()) return;
+    const column = bestAiColumn();
+    if (column >= 0) place(column, true);
+  }, 480);
+}
+
+function place(c, fromAi = false) {
   if (result || matchOver) return;
+  if (mode !== '2p' && turn === 2 && !fromAi) return;
 
   const r = landingRow(c);
   if (r < 0) return;
@@ -228,11 +380,11 @@ function place(c) {
   render();
 
   if (result?.type === 'win') {
-    announce(`${NAME[result.player]} wins round ${round} with four in a row!`);
+    announce(`${nameOf(result.player)} wins round ${round} with four in a row!`);
   } else if (result?.type === 'draw') {
     announce(`Round ${round} is a draw. The board is full.`);
   } else {
-    announce(`${NAME[turn]}'s turn.`);
+    announce(`${nameOf(turn)}'s turn.`);
   }
 
   if (result && !matchOver) {
@@ -242,6 +394,8 @@ function place(c) {
   if (matchOver) {
     window.clearTimeout(matchTimer);
     matchTimer = window.setTimeout(showMatchOver, 700);
+  } else {
+    scheduleAi();
   }
 }
 
@@ -249,16 +403,17 @@ function showMatchOver() {
   if (!matchOver) return;
 
   const winner = scores[1] >= TARGET ? 1 : 2;
-  veilTitle.textContent = `${NAME[winner]} wins the match!`;
-  veilCopy.textContent = `${scores[1]}–${scores[2]} after ${round} round${round === 1 ? '' : 's'}. ${NAME[winner]} takes the cup.`;
+  veilTitle.textContent = `${nameOf(winner)} wins the match!`;
+  veilCopy.textContent = `${scores[1]}-${scores[2]} after ${round} round${round === 1 ? '' : 's'}. ${nameOf(winner)} takes the cup.`;
   veil.hidden = false;
   veilRematch.focus({ preventScroll: true });
-  announce(`${NAME[winner]} wins the match ${scores[1]} to ${scores[2]}.`);
+  announce(`${nameOf(winner)} wins the match ${scores[1]} to ${scores[2]}.`);
 }
 
 function nextRound() {
   if (!result || matchOver) return;
 
+  clearAi();
   starter = result.type === 'win' ? result.player : other(starter);
   round += 1;
   turn = starter;
@@ -266,11 +421,13 @@ function nextRound() {
 
   clearBoard();
   render();
-  announce(`Round ${round}. ${NAME[turn]} starts.`);
-  focusColumn(0);
+  announce(`Round ${round}. ${nameOf(turn)} starts.`);
+  scheduleAi();
+  if (turn === 1) focusColumn(0);
 }
 
 function resetMatch() {
+  clearAi();
   window.clearTimeout(matchTimer);
 
   scores = { 1: 0, 2: 0 };
@@ -283,14 +440,24 @@ function resetMatch() {
   veil.hidden = true;
   clearBoard();
   render();
-  announce('New match. Player 1 starts. First to 3 round wins takes the match.');
-  focusColumn(0);
+  announce(mode === '2p' ? 'New match. Player 1 starts.' : 'New match. You are coral; the computer is teal.');
+  if (turn === 1) focusColumn(0);
 }
 
 colsEl.addEventListener('click', (event) => {
   const button = event.target.closest('.col');
   if (!button) return;
   place(Number(button.dataset.col));
+});
+
+modeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const nextMode = button.dataset.mode;
+    if (nextMode === mode) return;
+    mode = nextMode;
+    modeButtons.forEach((item) => item.classList.toggle('is-on', item === button));
+    softRefresh(page, resetMatch);
+  });
 });
 
 const requestNextRound = () => softRefresh(playField, nextRound);

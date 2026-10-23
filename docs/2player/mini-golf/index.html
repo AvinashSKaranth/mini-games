@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play three holes of Mini Golf on one device. Pull back, release, and sink the putt in solo or two-player mode.">
+  <title>Mini Golf · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div><h1>Mini Golf</h1><p>3 holes · solo or 2P</p></div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Start a new round">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="difficulty" role="group" aria-label="Game mode">
+      <button type="button" data-mode="solo" class="is-active">Solo</button>
+      <button type="button" data-mode="duo">2 Players</button>
+    </div>
+
+    <section class="hud" aria-label="Scorecard">
+      <div class="stat"><span>Hole</span><strong id="hole-num">1 / 3</strong></div>
+      <div class="stat"><span>Par</span><strong id="par">3</strong></div>
+      <div class="stat"><span id="label-strokes">Strokes</span><strong id="strokes">0</strong></div>
+      <div class="stat"><span>Total</span><strong id="total">0</strong></div>
+    </section>
+
+    <div class="course-wrap" id="course-wrap">
+      <canvas id="course" width="600" height="400" role="application" aria-label="Mini golf course. Drag back from the ball and release to putt."></canvas>
+      <div class="turn-pill" id="turn-pill">Hole 1 · par 3</div>
+    </div>
+
+    <div class="actions">
+      <p class="hint" id="hint">Pull back from the ball, then release. The ball must slow down to drop.</p>
+      <button class="btn btn--ghost" id="new-game" type="button">New round</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow">Round complete</p>
+      <h2 id="veil-title">Nice putting!</h2>
+      <p id="veil-copy">9 strokes across three holes.</p>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="rematch" type="button">Play again</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../../sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>

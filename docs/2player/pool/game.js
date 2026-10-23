@@ -12,6 +12,8 @@ const veilTitle = $('veil-title');
 const veilCopy = $('veil-copy');
 const rematchBtn = $('rematch');
 const newRackBtn = $('new-rack');
+const nameEls = [$('name-1'), $('name-2')];
+const modeButtons = [...document.querySelectorAll('.mode-switch button')];
 
 const W = 560;
 const H = 320;
@@ -58,6 +60,9 @@ const state = {
 
 let accumulator = 0;
 let lastTime = 0;
+let mode = '2p';
+let aiTimer = null;
+let aiToken = 0;
 
 function groupOf(num) {
   if (num === 8) return 'eight';
@@ -118,6 +123,9 @@ function setMessage(text) {
 }
 
 function updateHUD() {
+  NAMES[1] = mode === 'ai' ? 'Computer' : 'Player 2';
+  nameEls.forEach((el, i) => { el.textContent = NAMES[i]; });
+
   for (let i = 0; i < 2; i += 1) {
     const card = $(`player-${i + 1}`);
     const badge = $(`ball-${i + 1}`);
@@ -341,6 +349,7 @@ function allStopped() {
 }
 
 function endGame(winner, reason) {
+  clearAi();
   state.phase = 'over';
   state.shot = null;
   state.drag = null;
@@ -354,6 +363,140 @@ function endGame(winner, reason) {
   statusEl.classList.toggle('is-p2', winner === 1);
   draw();
   window.requestAnimationFrame(() => rematchBtn.focus({ preventScroll: true }));
+}
+
+function clearAi() {
+  aiToken += 1;
+  if (aiTimer !== null) {
+    window.clearTimeout(aiTimer);
+    aiTimer = null;
+  }
+}
+
+function canAiAct() {
+  return mode === 'ai' && state.turn === 1 && (state.phase === 'aim' || state.phase === 'inhand');
+}
+
+function pathClear(ax, ay, bx, by, ignore) {
+  const dx = bx - ax;
+  const dy = by - ay;
+  const lengthSq = dx * dx + dy * dy;
+  if (lengthSq < 1) return true;
+
+  for (const ball of state.balls) {
+    if (!ball.alive || ball.num === 0 || ball === ignore) continue;
+    const t = Math.max(0, Math.min(1, ((ball.x - ax) * dx + (ball.y - ay) * dy) / lengthSq));
+    const px = ax + dx * t;
+    const py = ay + dy * t;
+    const gap = Math.hypot(ball.x - px, ball.y - py);
+    if (gap < R * 2 - 2) return false;
+  }
+  return true;
+}
+
+function aiPlaceCue() {
+  const candidates = [];
+  for (let x = W * 0.16; x <= W * 0.44; x += 28) {
+    for (let y = H * 0.18; y <= H * 0.82; y += 26) {
+      if (isLegalSpot(x, y)) candidates.push({ x, y });
+    }
+  }
+
+  const spot = candidates[Math.floor(Math.random() * candidates.length)];
+  if (!spot) {
+    setMessage('The computer cannot find a clear spot for the cue ball.');
+    return false;
+  }
+
+  placeCue(spot.x, spot.y);
+  return true;
+}
+
+function chooseAiShot() {
+  const cue = state.cue;
+  if (!cue || !cue.alive) return null;
+
+  const group = state.groups[1];
+  const onEight = Boolean(group) && groupCount(group) === 0;
+  const targets = state.balls.filter((ball) => {
+    if (!ball.alive || ball.num === 0) return false;
+    if (onEight) return ball.num === 8;
+    if (!group) return ball.num !== 8;
+    return groupOf(ball.num) === group;
+  });
+
+  const shots = [];
+  for (const target of targets) {
+    for (const pocket of POCKETS) {
+      const pdx = pocket.x - target.x;
+      const pdy = pocket.y - target.y;
+      const pdist = Math.hypot(pdx, pdy) || 1;
+      const ux = pdx / pdist;
+      const uy = pdy / pdist;
+      const ghostX = target.x - ux * R * 2;
+      const ghostY = target.y - uy * R * 2;
+
+      if (ghostX < R + 2 || ghostX > W - R - 2 || ghostY < R + 2 || ghostY > H - R - 2) continue;
+      if (!pathClear(cue.x, cue.y, ghostX, ghostY, target)) continue;
+      if (!pathClear(target.x, target.y, pocket.x, pocket.y, target)) continue;
+
+      const cdx = ghostX - cue.x;
+      const cdy = ghostY - cue.y;
+      const cdist = Math.hypot(cdx, cdy) || 1;
+      const dot = (cdx / cdist) * ux + (cdy / cdist) * uy;
+      if (dot < 0.12) continue;
+
+      const score = dot * 2.4 + 1 / (1 + cdist / 260) + 1 / (1 + pdist / 260);
+      shots.push({ target, pocket, ghostX, ghostY, score, cdist, pdist, dot });
+    }
+  }
+
+  if (!shots.length) {
+    const target = targets[Math.floor(Math.random() * targets.length)];
+    if (!target) return null;
+    const dx = target.x - cue.x;
+    const dy = target.y - cue.y;
+    const length = Math.hypot(dx, dy) || 1;
+    return { dir: { x: dx / length, y: dy / length }, power: 0.72 };
+  }
+
+  shots.sort((a, b) => b.score - a.score);
+  const chosen = Math.random() < 0.18 ? shots[Math.floor(Math.random() * Math.min(3, shots.length))] : shots[0];
+  let dx = chosen.ghostX - cue.x;
+  let dy = chosen.ghostY - cue.y;
+  const length = Math.hypot(dx, dy) || 1;
+  dx /= length;
+  dy /= length;
+
+  const jitter = (Math.random() * 2 - 1) * 0.022;
+  const cos = Math.cos(jitter);
+  const sin = Math.sin(jitter);
+  const dir = { x: dx * cos - dy * sin, y: dx * sin + dy * cos };
+  const power = Math.max(0.5, Math.min(0.96, 0.58 + (chosen.cdist + chosen.pdist) / 1900 + Math.random() * 0.08));
+  return { dir, power };
+}
+
+function aiShoot() {
+  const plan = chooseAiShot();
+  if (!plan) return;
+  shoot(plan.dir, plan.power);
+}
+
+function scheduleAi() {
+  clearAi();
+  if (!canAiAct()) return;
+  const token = aiToken;
+  aiTimer = window.setTimeout(() => {
+    aiTimer = null;
+    if (token !== aiToken || !canAiAct()) return;
+
+    if (state.phase === 'inhand') {
+      if (aiPlaceCue()) scheduleAi();
+      return;
+    }
+
+    aiShoot();
+  }, 620);
 }
 
 function resolveShot() {
@@ -426,6 +569,7 @@ function resolveShot() {
     state.hover = null;
     setMessage(`Foul: ${shooterName} — ${foul}. ${opponentName} has ball in hand — tap a clear spot.`);
     updateHUD();
+    scheduleAi();
     return;
   }
 
@@ -471,6 +615,7 @@ function resolveShot() {
   }
 
   updateHUD();
+  scheduleAi();
 }
 
 function updatePower(power) {
@@ -925,6 +1070,7 @@ function shoot(dir, power) {
 }
 
 function newRack() {
+  clearAi();
   rackBalls();
   state.phase = 'aim';
   state.turn = 0;
@@ -971,6 +1117,7 @@ function endDrag(event) {
 
 canvas.addEventListener('pointerdown', (event) => {
   if (event.pointerType === 'mouse' && event.button !== 0) return;
+  if (mode === 'ai' && state.turn === 1) return;
 
   if (state.phase === 'inhand') {
     event.preventDefault();
@@ -1042,6 +1189,16 @@ canvas.addEventListener('contextmenu', (event) => event.preventDefault());
 $('reset').addEventListener('click', requestNewRack);
 newRackBtn.addEventListener('click', requestNewRack);
 rematchBtn.addEventListener('click', requestNewRack);
+
+modeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.dataset.mode === mode) return;
+    mode = button.dataset.mode;
+    modeButtons.forEach((item) => item.classList.toggle('is-on', item === button));
+    clearAi();
+    softRefresh(stage, newRack);
+  });
+});
 
 function frame(now) {
   window.requestAnimationFrame(frame);

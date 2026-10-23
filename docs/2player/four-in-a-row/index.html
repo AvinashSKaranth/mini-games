@@ -35,6 +35,11 @@
         <span class="target">First to 3 wins</span>
       </div>
 
+      <div class="mode-switch" role="group" aria-label="Opponent">
+        <button type="button" data-mode="2p" class="is-on">2 Players</button>
+        <button type="button" data-mode="ai">vs AI</button>
+      </div>
+
       <section class="players" aria-label="Scoreboard">
         <div class="player player--p1 is-active" id="player-1">
           <span class="chip" aria-hidden="true"></span>
@@ -43,7 +48,7 @@
         </div>
         <div class="player player--p2" id="player-2">
           <span class="chip" aria-hidden="true"></span>
-          <span class="who"><strong>Player 2</strong><small>Teal discs</small></span>
+          <span class="who"><strong id="name-2">Player 2</strong><small>Teal discs</small></span>
           <b class="wins" id="score-2">0</b>
         </div>
       </section>

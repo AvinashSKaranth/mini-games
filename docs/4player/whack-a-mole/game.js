@@ -3,7 +3,8 @@ import { softRefresh } from '../../shared/refresh.js';
 const PLAYERS = [
   { name: 'Player 1', accent: '#ff6b5a' },
   { name: 'Player 2', accent: '#21b6a8' },
-  { name: 'Player 3', accent: '#7c5cff' }
+  { name: 'Player 3', accent: '#7c5cff' },
+  { name: 'Player 4', accent: '#3d6fb4' }
 ];
 const HOLE_COUNT = 3;
 const DURATION = 40;
@@ -25,8 +26,8 @@ const statusEl = $('status');
 
 const lanes = [];
 const holes = [];
-let scores = [0, 0, 0];
-let lastHole = [-1, -1, -1];
+let scores = [0, 0, 0, 0];
+let lastHole = [-1, -1, -1, -1];
 let running = false;
 let token = 0;
 let endAt = 0;
@@ -244,8 +245,8 @@ function resetRoundState() {
   token += 1;
   running = false;
   clearTimers();
-  scores = [0, 0, 0];
-  lastHole = [-1, -1, -1];
+  scores = [0, 0, 0, 0];
+  lastHole = [-1, -1, -1, -1];
   for (let p = 0; p < PLAYERS.length; p += 1) {
     $(`score-${p}`).textContent = '0';
   }
@@ -258,7 +259,7 @@ function showIdle() {
   countdownEl.hidden = false;
   startBtn.hidden = false;
   countdownNumber.textContent = '3';
-  countdownCopy.textContent = 'players · 40 seconds';
+  countdownCopy.textContent = '4 players · 40 seconds';
   statusEl.textContent = 'Press start to begin the round.';
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "Mini Games",
   "short_name": "Mini Games",
-  "description": "Twelve tiny games for one, two, or three players.",
+  "description": "Twenty tiny games for one, two, or four players.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -16,7 +16,7 @@
       "purpose": "any"
     },
     {
-      "src": "3player/whack-a-mole/assets/icon.svg",
+      "src": "4player/whack-a-mole/assets/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"

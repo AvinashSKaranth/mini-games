@@ -21,6 +21,10 @@ const roundLabel = $('round-label');
 const winsEls = [$('wins-1'), $('wins-2')];
 const scoreEls = [$('score-1'), $('score-2')];
 const playerEls = [$('player-1'), $('player-2')];
+const name2El = $('name-2');
+const subtitle = $('subtitle');
+const p2Pad = $('p2-pad');
+const modeButtons = [...document.querySelectorAll('.mode-switch button')];
 
 const COLS = 19;
 const ROWS = 19;
@@ -69,6 +73,7 @@ let accumulator = 0;
 let lastFrame = performance.now();
 let paused = false;
 let cssSize = 0;
+let mode = '2p';
 
 function key(cell) {
   return `${cell.x},${cell.y}`;
@@ -113,9 +118,17 @@ function spawnFood() {
 }
 
 function renderHud() {
+  COLORS[1].name = mode === 'ai' ? 'Computer' : 'Player 2';
   roundLabel.textContent = `Round ${roundNo}`;
   winsEls.forEach((el, i) => { el.textContent = String(wins[i]); });
   scoreEls.forEach((el, i) => { el.textContent = String(points[i]); });
+  name2El.textContent = COLORS[1].name;
+  subtitle.textContent = mode === 'ai' ? 'You vs the computer' : '2 players · one device';
+  controls.classList.toggle('is-ai', mode === 'ai');
+  p2Pad.setAttribute('aria-hidden', String(mode === 'ai'));
+  canvas.setAttribute('aria-label', mode === 'ai'
+    ? 'Snake arena, 19 by 19 cells. You are coral on the left, the computer is teal on the right.'
+    : 'Snake arena, 19 by 19 cells. Player 1 is coral and starts on the left. Player 2 is teal and starts on the right.');
   playerEls.forEach((el, i) => {
     el.classList.toggle('is-out', phase !== 'playing' && phase !== 'countdown' && snakes[i] && !snakes[i].alive);
   });
@@ -156,7 +169,7 @@ function beginPlaying() {
   accumulator = 0;
   lastFrame = performance.now();
   renderHud();
-  statusEl.textContent = `Go! Round ${roundNo}. Player 1 has ${points[0]} points, Player 2 has ${points[1]}.`;
+  statusEl.textContent = `Go! Round ${roundNo}. Player 1 has ${points[0]} points, ${COLORS[1].name} has ${points[1]}.`;
 }
 
 function turn(player, dirName) {
@@ -171,7 +184,75 @@ function turn(player, dirName) {
   if (snake.queue.length < 2) snake.queue.push(dir);
 }
 
+function bodyBlocked(x, y) {
+  for (const snake of snakes) {
+    for (let i = 0; i < snake.body.length; i += 1) {
+      const segment = snake.body[i];
+      if (segment.x === x && segment.y === y && i !== snake.body.length - 1) return true;
+    }
+  }
+  return false;
+}
+
+function openSpace(startX, startY, extraBlocked) {
+  const seen = new Set([`${startX},${startY}`]);
+  const queue = [{ x: startX, y: startY }];
+  let count = 0;
+
+  while (queue.length && count < 180) {
+    const cell = queue.shift();
+    count += 1;
+    for (const dir of Object.values(DIRS)) {
+      const nx = cell.x + dir.x;
+      const ny = cell.y + dir.y;
+      const id = `${nx},${ny}`;
+      if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS || seen.has(id)) continue;
+      if (bodyBlocked(nx, ny) || extraBlocked.has(id)) continue;
+      seen.add(id);
+      queue.push({ x: nx, y: ny });
+    }
+  }
+  return count;
+}
+
+function chooseAiDirection() {
+  const ai = snakes[1];
+  if (!ai || !ai.alive) return null;
+
+  const head = ai.body[0];
+  const current = ai.dir;
+  const occupied = new Set(snakes.flatMap((snake) => snake.body.map(key)));
+  const safe = [];
+
+  for (const [name, dir] of Object.entries(DIRS)) {
+    if (dir.x === -current.x && dir.y === -current.y) continue;
+    const nx = head.x + dir.x;
+    const ny = head.y + dir.y;
+    if (nx < 0 || ny < 0 || nx >= COLS || ny >= ROWS) continue;
+    if (occupied.has(`${nx},${ny}`)) continue;
+    if (same({ x: nx, y: ny }, snakes[0].body[0])) continue;
+
+    const room = openSpace(nx, ny, new Set([`${nx},${ny}`]));
+    let nearest = 999;
+    for (const food of foods) {
+      nearest = Math.min(nearest, Math.abs(food.x - nx) + Math.abs(food.y - ny));
+    }
+    const eating = foods.some((food) => same(food, { x: nx, y: ny }));
+    safe.push({ name, score: room * 2.2 - nearest * 3 + (eating ? 55 : 0) + Math.random() * 7 });
+  }
+
+  if (!safe.length) return null;
+  if (Math.random() < 0.1) return safe[Math.floor(Math.random() * safe.length)].name;
+  safe.sort((a, b) => b.score - a.score);
+  return safe[0].name;
+}
+
 function step() {
+  if (mode === 'ai' && phase === 'playing' && snakes[1]?.alive) {
+    const dirName = chooseAiDirection();
+    if (dirName) turn(1, dirName);
+  }
+
   for (const snake of snakes) {
     if (!snake.alive || !snake.queue.length) continue;
     const dir = snake.queue.shift();
@@ -509,6 +590,7 @@ window.addEventListener('keydown', (event) => {
   const move = KEYMAP[event.key.toLowerCase()];
   if (!move) return;
   event.preventDefault();
+  if (mode === 'ai' && move[0] === 1) return;
   turn(move[0], move[1]);
 });
 
@@ -516,8 +598,10 @@ controls.addEventListener('pointerdown', (event) => {
   const button = event.target.closest('.dpad-btn');
   if (!button) return;
   event.preventDefault();
+  const player = Number(button.dataset.player);
+  if (mode === 'ai' && player === 1) return;
   pressFeedback(button);
-  turn(Number(button.dataset.player), button.dataset.dir);
+  turn(player, button.dataset.dir);
 });
 
 controls.addEventListener('click', (event) => {
@@ -533,6 +617,16 @@ controls.addEventListener('contextmenu', (event) => event.preventDefault());
 nextRoundBtn.addEventListener('click', startNextRound);
 $('reset').addEventListener('click', newMatch);
 $('rematch').addEventListener('click', newMatch);
+
+modeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.dataset.mode === mode) return;
+    mode = button.dataset.mode;
+    modeButtons.forEach((item) => item.classList.toggle('is-on', item === button));
+    renderHud();
+    newMatch();
+  });
+});
 
 document.addEventListener('visibilitychange', () => {
   paused = document.hidden;

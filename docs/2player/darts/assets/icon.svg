@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" role="img" aria-label="Darts icon">
+  <defs>
+    <radialGradient id="bg" cx=".4" cy=".3" r=".9"><stop offset="0" stop-color="#FFF4DA"/><stop offset="1" stop-color="#FFE7C4"/></radialGradient>
+  </defs>
+  <rect width="112" height="112" rx="26" fill="url(#bg)"/>
+  <circle cx="56" cy="58" r="38" fill="#1E2433" stroke="#1E2433" stroke-width="4"/>
+  <circle cx="56" cy="58" r="31" fill="#FFF9F0"/>
+  <circle cx="56" cy="58" r="31" fill="none" stroke="#21B6A8" stroke-width="6" stroke-dasharray="9.7 9.7"/>
+  <circle cx="56" cy="58" r="22" fill="#1E2433"/>
+  <circle cx="56" cy="58" r="22" fill="none" stroke="#FF6B5A" stroke-width="6" stroke-dasharray="6.9 6.9"/>
+  <circle cx="56" cy="58" r="9" fill="#FF6B5A"/>
+  <circle cx="56" cy="58" r="3.5" fill="#FFF9F0"/>
+  <g transform="rotate(38 56 58)" stroke="#1E2433" stroke-linecap="round">
+    <path d="M56 58 86 28" stroke="#C8B9A4" stroke-width="6"/>
+    <path d="M82 24l13 3-3 13z" fill="#FF6B5A" stroke-width="3"/>
+    <path d="M88 18l6 2-2 6" fill="#FFB703" stroke-width="2"/>
+  </g>
+</svg>

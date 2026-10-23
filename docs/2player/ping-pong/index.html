@@ -41,10 +41,15 @@
       </div>
       <div class="score score--p2" id="card-p2">
         <span class="score-dot" aria-hidden="true"></span>
-        <span class="name"><strong>Player 2</strong><small>↑ / ↓</small></span>
+        <span class="name"><strong id="name-p2">Player 2</strong><small id="help-p2">↑ / ↓</small></span>
         <b id="score-p2">0</b>
       </div>
     </section>
+
+    <div class="mode-switch" role="group" aria-label="Opponent">
+      <button type="button" data-mode="2p" class="is-on">2 Players</button>
+      <button type="button" data-mode="ai">vs AI</button>
+    </div>
 
     <div class="court-shell">
       <div class="court" id="court">
