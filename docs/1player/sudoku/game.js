@@ -5,10 +5,12 @@ import {
   CELLS,
   CLUES
 } from './engine.js';
+import { softRefresh } from '../../shared/refresh.js';
 
 const $ = (id) => document.getElementById(id);
 
 const boardEl = $('board');
+const playField = document.querySelector('.board-wrap');
 const keypadEl = $('keypad');
 const timerEl = $('timer');
 const mistakesEl = $('mistakes');
@@ -258,28 +260,34 @@ function newPuzzle(nextLevel = level) {
   stopTimer();
   timerEl.textContent = '00:00';
   veil.hidden = true;
-  boardEl.style.opacity = '.45';
 
   document.querySelectorAll('.difficulty button').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.level === level);
   });
 
-  window.setTimeout(() => {
-    if (token !== generation) return;
-    const generated = generatePuzzle(level);
-    puzzle = generated.puzzle;
-    solution = generated.solution;
-    values = puzzle.slice();
-    given = puzzle.map((value) => value !== 0);
-    notes = Array.from({ length: CELLS }, () => new Set());
-    hinted = new Set();
-    boardEl.style.opacity = '';
-    render();
-    statusEl.textContent = `New ${level} puzzle with ${generated.clues} clues.`;
-  }, 40);
+  return new Promise((resolve) => {
+    window.setTimeout(() => {
+      if (token !== generation) {
+        resolve();
+        return;
+      }
+      const generated = generatePuzzle(level);
+      puzzle = generated.puzzle;
+      solution = generated.solution;
+      values = puzzle.slice();
+      given = puzzle.map((value) => value !== 0);
+      notes = Array.from({ length: CELLS }, () => new Set());
+      hinted = new Set();
+      render();
+      statusEl.textContent = `New ${level} puzzle with ${generated.clues} clues.`;
+      resolve();
+    }, 40);
+  });
 }
 
 /* events */
+const requestPuzzle = (nextLevel = level) => softRefresh(playField, () => newPuzzle(nextLevel));
+
 boardEl.addEventListener('click', (event) => {
   const cell = event.target.closest('.cell');
   if (!cell) return;
@@ -297,13 +305,13 @@ keypadEl.addEventListener('click', (event) => {
 notesBtn.addEventListener('click', toggleNotes);
 $('hint').addEventListener('click', useHint);
 $('erase').addEventListener('click', clearCell);
-$('new-game').addEventListener('click', () => newPuzzle());
+$('new-game').addEventListener('click', () => requestPuzzle());
 
 document.querySelectorAll('.difficulty button').forEach((button) => {
-  button.addEventListener('click', () => newPuzzle(button.dataset.level));
+  button.addEventListener('click', () => requestPuzzle(button.dataset.level));
 });
 
-veilPrimary.addEventListener('click', () => newPuzzle());
+veilPrimary.addEventListener('click', () => requestPuzzle());
 veilSecondary.addEventListener('click', () => {
   veil.hidden = true;
 });

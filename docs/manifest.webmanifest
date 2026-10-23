@@ -1,7 +1,7 @@
 {
   "name": "Mini Games",
   "short_name": "Mini Games",
-  "description": "Five tiny games for one, two, or three players.",
+  "description": "Twelve tiny games for one, two, or three players.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

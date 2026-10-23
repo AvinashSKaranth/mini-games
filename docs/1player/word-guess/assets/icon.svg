@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Word Guess">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="3" x2="57" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9EE"/>
+      <stop offset=".62" stop-color="#FFEAC9"/>
+      <stop offset="1" stop-color="#F7DBAE"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="16" y1="28" x2="31" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3FD7C6"/>
+      <stop offset="1" stop-color="#0E7C72"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="31" y1="28" x2="46" y2="43" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD15C"/>
+      <stop offset="1" stop-color="#F0A000"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="10" y1="12" x2="49" y2="26" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFF6E5"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="1.5" y="1.5" width="61" height="61" rx="16" fill="url(#bg)" stroke="#E8CFA9" stroke-width="1.5"/>
+  <path d="M6 55c9-7 21-10 35-8" fill="none" stroke="#FF6B5A" stroke-width="2.2" stroke-linecap="round" opacity=".28"/>
+  <circle cx="53" cy="11" r="9" fill="#FF6B5A" opacity=".1"/>
+
+  <g>
+    <rect x="11" y="14.5" width="13" height="13" rx="4" fill="#D9BE95" opacity=".3"/>
+    <rect x="25" y="14.5" width="13" height="13" rx="4" fill="#D9BE95" opacity=".3"/>
+    <rect x="39" y="14.5" width="13" height="13" rx="4" fill="#D9BE95" opacity=".3"/>
+
+    <rect x="11" y="13" width="13" height="13" rx="4" fill="url(#cream)" stroke="#E8D3B2" stroke-width="1"/>
+    <rect x="25" y="13" width="13" height="13" rx="4" fill="url(#cream)" stroke="#E8D3B2" stroke-width="1"/>
+    <rect x="39" y="13" width="13" height="13" rx="4" fill="url(#cream)" stroke="#E8D3B2" stroke-width="1"/>
+
+    <rect x="18" y="30.5" width="13" height="13" rx="4" fill="#0A5F57" opacity=".3"/>
+    <rect x="32" y="30.5" width="13" height="13" rx="4" fill="#B97A00" opacity=".28"/>
+
+    <rect x="18" y="29" width="13" height="13" rx="4" fill="url(#teal)"/>
+    <rect x="32" y="29" width="13" height="13" rx="4" fill="url(#amber)"/>
+
+    <path d="M21.6 35.5l1.9 1.9 4.1-4.4" fill="none" stroke="#FFFDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="38.5" cy="35.5" r="1.7" fill="#FFFDF8"/>
+  </g>
+
+  <path d="M50 45.5v8M46 49.5h8" fill="none" stroke="#FF6B5A" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="14" cy="49" r="2" fill="#FFB703"/>
+</svg>

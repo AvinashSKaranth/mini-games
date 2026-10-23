@@ -10,10 +10,12 @@ import {
   revealAllMines,
   formatTime
 } from './engine.js';
+import { softRefresh } from '../../shared/refresh.js';
 
 const $ = (id) => document.getElementById(id);
 
 const boardEl = $('board');
+const playField = document.querySelector('.board-wrap');
 const minesEl = $('mines-left');
 const timerEl = $('timer');
 const bestEl = $('best');
@@ -318,20 +320,22 @@ boardEl.addEventListener('click', (event) => {
 boardEl.addEventListener('contextmenu', (event) => event.preventDefault());
 
 /* buttons */
+const requestGame = (nextLevel = level) => softRefresh(playField, () => newGame(nextLevel));
+
 flagBtn.addEventListener('click', () => {
   flagMode = !flagMode;
   flagBtn.setAttribute('aria-pressed', flagMode ? 'true' : 'false');
   statusEl.textContent = flagMode ? 'Flag mode on. Tap a covered cell to flag it.' : 'Flag mode off.';
 });
 
-$('restart').addEventListener('click', () => newGame());
-$('new-game').addEventListener('click', () => newGame());
+$('restart').addEventListener('click', () => requestGame());
+$('new-game').addEventListener('click', () => requestGame());
 
 document.querySelectorAll('.difficulty button').forEach((button) => {
-  button.addEventListener('click', () => newGame(button.dataset.level));
+  button.addEventListener('click', () => requestGame(button.dataset.level));
 });
 
-veilPrimary.addEventListener('click', () => newGame());
+veilPrimary.addEventListener('click', () => requestGame());
 veilSecondary.addEventListener('click', () => {
   veil.hidden = true;
 });

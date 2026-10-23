@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play two-player Ping Pong on one device. Drag each half of the court or use W/S and the arrow keys. First to seven wins.">
+  <title>Ping Pong · 2 Player · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Ping Pong</h1>
+          <p>2 players · first to 7</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Start a new match">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <section class="hud" id="hud" role="group" aria-label="Match score">
+      <div class="score score--p1 is-serving" id="card-p1">
+        <span class="score-dot" aria-hidden="true"></span>
+        <span class="name"><strong>Player 1</strong><small>W / S</small></span>
+        <b id="score-p1">0</b>
+      </div>
+      <div class="rally" aria-hidden="true">
+        <span>Rally</span>
+        <b id="rally">0</b>
+      </div>
+      <div class="score score--p2" id="card-p2">
+        <span class="score-dot" aria-hidden="true"></span>
+        <span class="name"><strong>Player 2</strong><small>↑ / ↓</small></span>
+        <b id="score-p2">0</b>
+      </div>
+    </section>
+
+    <div class="court-shell">
+      <div class="court" id="court">
+        <canvas id="court-canvas" tabindex="0" role="application" aria-keyshortcuts="W S ArrowUp ArrowDown" aria-describedby="how-to" aria-label="Ping pong court. Player 1 controls the left paddle, Player 2 controls the right paddle.">Ping pong court. Player 1 uses W and S, Player 2 uses the arrow keys.</canvas>
+
+        <div class="serve" id="serve" hidden aria-hidden="true"><span id="serve-text">3</span></div>
+
+        <div class="veil" id="veil" hidden>
+          <div class="veil-card">
+            <img src="assets/icon.svg" alt="" width="64" height="64">
+            <p class="eyebrow">Match complete</p>
+            <h2 id="veil-title">Player 1 wins!</h2>
+            <p id="veil-copy">7 – 4</p>
+            <div class="veil-actions">
+              <button class="btn btn--primary" id="veil-primary" type="button">Rematch</button>
+              <button class="btn btn--ghost" id="veil-reset" type="button">Reset match</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p class="hint" id="how-to">Drag your half · <kbd>W</kbd><kbd>S</kbd> or <kbd>↑</kbd><kbd>↓</kbd></p>
+      <button class="btn btn--ghost" id="new-match" type="button">New match</button>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

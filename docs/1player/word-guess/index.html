@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play Word Guess offline: find the hidden five-letter word in six tries.">
+  <title>Word Guess · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Word Guess</h1>
+          <p>1 player · word</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="restart" type="button" aria-label="Start a new word">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <section class="meta meta--stats" aria-label="Your statistics">
+      <div><span>Played</span><strong id="stat-played">0</strong></div>
+      <div><span>Wins</span><strong id="stat-wins">0</strong></div>
+      <div><span>Streak</span><strong id="stat-streak">0</strong></div>
+      <div><span>Best</span><strong id="stat-best">0</strong></div>
+    </section>
+
+    <div class="board-wrap" id="board-shell">
+      <div class="board" id="board" role="grid" aria-label="Word Guess board, six rows of five letters" tabindex="0"></div>
+    </div>
+
+    <div class="keyboard" id="keyboard" role="group" aria-label="On-screen keyboard">
+      <div class="krow">
+        <button class="key" type="button" data-key="Q">Q</button>
+        <button class="key" type="button" data-key="W">W</button>
+        <button class="key" type="button" data-key="E">E</button>
+        <button class="key" type="button" data-key="R">R</button>
+        <button class="key" type="button" data-key="T">T</button>
+        <button class="key" type="button" data-key="Y">Y</button>
+        <button class="key" type="button" data-key="U">U</button>
+        <button class="key" type="button" data-key="I">I</button>
+        <button class="key" type="button" data-key="O">O</button>
+        <button class="key" type="button" data-key="P">P</button>
+      </div>
+      <div class="krow">
+        <button class="key" type="button" data-key="A">A</button>
+        <button class="key" type="button" data-key="S">S</button>
+        <button class="key" type="button" data-key="D">D</button>
+        <button class="key" type="button" data-key="F">F</button>
+        <button class="key" type="button" data-key="G">G</button>
+        <button class="key" type="button" data-key="H">H</button>
+        <button class="key" type="button" data-key="J">J</button>
+        <button class="key" type="button" data-key="K">K</button>
+        <button class="key" type="button" data-key="L">L</button>
+      </div>
+      <div class="krow">
+        <button class="key" type="button" data-key="Z">Z</button>
+        <button class="key" type="button" data-key="X">X</button>
+        <button class="key" type="button" data-key="C">C</button>
+        <button class="key" type="button" data-key="V">V</button>
+        <button class="key" type="button" data-key="B">B</button>
+        <button class="key" type="button" data-key="N">N</button>
+        <button class="key" type="button" data-key="M">M</button>
+        <button class="key key--enter" type="button" data-key="ENTER" aria-label="Submit guess">Enter</button>
+        <button class="key key--back" type="button" data-key="BACK" aria-label="Delete letter">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9L3 12l6-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 9.5l5 5M16 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary" id="new-game" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        New game
+      </button>
+      <p class="hint">Guess the five-letter word in six tries. Green means right spot, gold means wrong spot.</p>
+      <ul class="legend" aria-label="Colour guide">
+        <li><i class="dot dot--correct"></i>Right spot</li>
+        <li><i class="dot dot--present"></i>Wrong spot</li>
+        <li><i class="dot dot--absent"></i>Not used</li>
+      </ul>
+    </div>
+
+    <div class="veil" id="veil" hidden>
+      <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title" aria-describedby="veil-copy">
+        <img src="assets/icon.svg" alt="" width="64" height="64">
+        <p class="eyebrow" id="veil-eyebrow">Solved</p>
+        <h2 id="veil-title">You got it!</h2>
+        <p id="veil-copy">The word was</p>
+        <p class="answer" id="veil-word">CRANE</p>
+        <dl class="result" id="veil-stats"></dl>
+        <div class="veil-actions">
+          <button class="btn btn--primary" id="veil-primary" type="button">Play again</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

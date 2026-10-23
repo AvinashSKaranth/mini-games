@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bolt">
+  <path d="M292 48L122 286h116l-24 178 186-252H282z" fill="#F59E0B" stroke="#1E2433" stroke-width="26" stroke-linejoin="round"/>
+  <path d="M272 100l-92 142h66" fill="none" stroke="#FFF9F0" stroke-width="15" stroke-linecap="round" opacity=".5"/>
+</svg>

@@ -1,6 +1,10 @@
+import { softRefresh } from '../../shared/refresh.js';
+
 const $ = (id) => document.getElementById(id);
 
+const page = document.querySelector('.app');
 const boardEl = $('board');
+const playField = document.querySelector('.board-wrap');
 const turnbar = $('turnbar');
 const turnText = $('turn-text');
 const turnMark = $('turn-mark');
@@ -203,10 +207,13 @@ boardEl.addEventListener('click', (event) => {
   place(Number(cell.dataset.index));
 });
 
-nextRoundBtn.addEventListener('click', nextRound);
-$('reset').addEventListener('click', resetMatch);
-$('reset-match').addEventListener('click', resetMatch);
-$('veil-primary').addEventListener('click', resetMatch);
+const requestNextRound = () => softRefresh(playField, nextRound);
+const requestReset = () => softRefresh(page, resetMatch);
+
+nextRoundBtn.addEventListener('click', requestNextRound);
+$('reset').addEventListener('click', requestReset);
+$('reset-match').addEventListener('click', requestReset);
+$('veil-primary').addEventListener('click', requestReset);
 
 window.addEventListener('keydown', (event) => {
   if (event.key >= '1' && event.key <= '9') {

@@ -316,25 +316,33 @@ Ship after every phase; GitHub Pages deploys from `/docs` on `main`.
 | 2048 | 1 | `docs/1player/2048/` | Swipe + arrow keys, undo, best score, win/continue and game-over overlays |
 | Sudoku | 1 | `docs/1player/sudoku/` | Three difficulties, notes, hints, mistakes, timer, best time |
 | Minesweeper | 1 | `docs/1player/minesweeper/` | Safe first tap, flood reveal, flag mode, long-press, chord, timer, best time |
+| Word Guess | 1 | `docs/1player/word-guess/` | Six guesses, duplicate-aware scoring, on-screen QWERTY, stats, replay |
 | Tic Tac Toe | 2 | `docs/2player/tic-tac-toe/` | Pass-and-play, first to 5 round wins, winning line, draws, match reset |
+| Four in a Row | 2 | `docs/2player/four-in-a-row/` | Column preview, drop animation, four-line highlight, first to 3 rounds |
+| Ping Pong | 2 | `docs/2player/ping-pong/` | Split-court drag, W/S + arrows, first to 7, rally tracking, rematch |
+| Pool | 2 | `docs/2player/pool/` | Simplified 8-ball, drag-back aiming, power meter, pockets, ball-in-hand |
+| Snakes | 2 | `docs/2player/snakes/` | 19×19 arena, food and growth, collisions, best-of-three match |
+| Paint Fight | 2 | `docs/2player/paint-fight/` | 45-second grid paint duel, two control pads, live coverage meters |
+| Memory Match | 2 | `docs/2player/memory-match/` | 4×4 pairs, turn handoff, match overlay, eight original face icons |
 | Whack-a-Mole | 3 | `docs/3player/whack-a-mole/` | Three lanes, simultaneous moles, 40-second round, podium and rematch |
 
-Landing page is `docs/index.html`, with player-count filters and links to all five games.
+Landing page is `docs/index.html`, with player-count filters and links to all twelve games.
 
 ### Decisions taken
 
 - **Art sample:** none was provided, so all game and hub SVG art is original in the warm cream/ink palette defined in section 7.
 - **Build step:** zero-build vanilla HTML/CSS/ES modules, no framework and no compile step. This keeps the Pages deploy to a static `/docs` folder.
-- **MVP cut:** the first slice is five games rather than twelve, covering every player count (1P, 2P, 3P) end to end.
-- **Orientation:** portrait and landscape are both supported. Landscape uses a board-plus-side-panel grid for 2048, Sudoku, Minesweeper, and Tic Tac Toe, and a three-column arena for Whack-a-Mole.
+- **MVP cut:** the first slice shipped with five games; the remaining seven MVP titles (Word Guess, Four in a Row, Ping Pong, Pool, Snakes, Paint Fight, Memory) followed in the second slice, so all twelve MVP games are now live.
+- **Reset polish:** new games use a shared fade-out/rebuild/fade-in helper for New game, reset, next round, and rematch actions. Reduced-motion users get an instant rebuild.
+- **Orientation:** portrait and landscape are both supported. Landscape uses a board-plus-side-panel grid for 2048, Sudoku, Minesweeper, Tic Tac Toe, Four in a Row, Pool, and Memory; a three-column arena for Whack-a-Mole, Snakes, Paint Fight, and Ping Pong.
 - **Sound:** no audio in this slice; synthesized SFX remain a later polish item.
 
 ### Offline and performance
 
-- `docs/sw.js` pre-caches the hub and all five games (37 entries) and serves navigations network-first, assets cache-first.
+- `docs/sw.js` pre-caches the hub, shared shell, and all twelve games (76 core entries) and serves navigations network-first, assets cache-first.
 - `CACHE` is versioned. Install fetches each core asset with `cache: 'reload'` so a new service-worker version cannot re-cache stale files from an older worker.
 - All assets are local SVGs; no external fonts, scripts, or network calls are required after first load.
-- Verified offline load of the hub and Sudoku, 320×568 portrait, 390×844 portrait, 667×375 landscape, and 844×390 landscape.
+- Verified offline load of the hub plus representative new games (Word Guess, Four in a Row, Ping Pong, Pool, Snakes, Paint Fight, Memory), 320×568 portrait, 390×844 portrait, 568×320 landscape, and 844×390 landscape.
 
 ### Deployment
 

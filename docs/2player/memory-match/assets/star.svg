@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Star">
+  <path d="M256 76l57 118 124 17-90 88 22 124-113-60-113 60 22-124-90-88 124-17z" fill="#FFB703" stroke="#1E2433" stroke-width="26" stroke-linejoin="round"/>
+  <path d="M256 148l28 58 63 9-46 44 12 63-57-30" fill="none" stroke="#FFF9F0" stroke-width="15" stroke-linecap="round" opacity=".7"/>
+</svg>

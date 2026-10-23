@@ -1,3 +1,5 @@
+import { softRefresh } from '../../shared/refresh.js';
+
 const PLAYERS = [
   { name: 'Player 1', accent: '#ff6b5a' },
   { name: 'Player 2', accent: '#21b6a8' },
@@ -293,9 +295,12 @@ function startFresh() {
   countdown();
 }
 
-startBtn.addEventListener('click', startFresh);
-$('restart').addEventListener('click', showIdle);
-$('play-again').addEventListener('click', startFresh);
+const requestStart = () => softRefresh(arenaEl, startFresh);
+const requestIdle = () => softRefresh(arenaEl, showIdle);
+
+startBtn.addEventListener('click', requestStart);
+$('restart').addEventListener('click', requestIdle);
+$('play-again').addEventListener('click', requestStart);
 
 buildArena();
 showIdle();

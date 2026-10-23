@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FFF9F0">
-  <meta name="description" content="Five free mini games for one, two, or three players. Play 2048, Sudoku, Minesweeper, Tic Tac Toe, and Whack-a-Mole in your browser.">
+  <meta name="description" content="Twelve free mini games for one, two, or three players. Play 2048, Sudoku, Minesweeper, Word Guess, Tic Tac Toe, Pool, Snakes, and more in your browser.">
   <title>Mini Games · One phone, three players</title>
   <link rel="icon" href="1player/2048/assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
@@ -30,7 +30,7 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Free browser arcade · no install</p>
         <h1>One phone.<br><span class="highlight">Three players.</span></h1>
-        <p class="lede">Five tiny games for the queue, the bus, or the dinner table. Pass the phone, split the screen, settle the score.</p>
+        <p class="lede">Twelve tiny games for the queue, the bus, or the dinner table. Pass the phone, split the screen, settle the score.</p>
         <div class="hero-actions">
           <a class="btn btn--primary" href="#games">
             Browse the games
@@ -39,7 +39,7 @@
           <a class="btn btn--ghost" href="1player/2048/">Quick play: 2048</a>
         </div>
         <dl class="hero-stats">
-          <div><dt>5</dt><dd>games</dd></div>
+          <div><dt>12</dt><dd>games</dd></div>
           <div><dt>1–3</dt><dd>players</dd></div>
           <div><dt>0</dt><dd>installs</dd></div>
         </dl>
@@ -79,9 +79,9 @@
           <h2>Pick a game</h2>
         </div>
         <div class="filters" role="group" aria-label="Filter by player count">
-          <button data-filter="all" class="is-active" aria-pressed="true">All <span>5</span></button>
-          <button data-filter="1" aria-pressed="false">1P <span>3</span></button>
-          <button data-filter="2" aria-pressed="false">2P <span>1</span></button>
+          <button data-filter="all" class="is-active" aria-pressed="true">All <span>12</span></button>
+          <button data-filter="1" aria-pressed="false">1P <span>4</span></button>
+          <button data-filter="2" aria-pressed="false">2P <span>7</span></button>
           <button data-filter="3" aria-pressed="false">3P <span>1</span></button>
         </div>
       </div>
@@ -135,6 +135,22 @@
           </div>
         </a>
 
+        <a class="game-card" href="1player/word-guess/" data-players="1" style="--accent:#FFB703; --soft:#FFF0C2; --deep:#A86200">
+          <div class="card-art">
+            <span class="player-badge">1 player</span>
+            <img src="1player/word-guess/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Word</span><span>3 min</span></p>
+            <h3>Word Guess</h3>
+            <p>Six tries to crack a five-letter word, with a full on-screen keyboard.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
         <a class="game-card" href="2player/tic-tac-toe/" data-players="2" style="--accent:#7C5CFF; --soft:#EAE4FF; --deep:#5334C9">
           <div class="card-art">
             <span class="player-badge">2 players</span>
@@ -145,6 +161,102 @@
             <p class="card-meta"><span>Duel</span><span>5 min</span></p>
             <h3>Tic Tac Toe</h3>
             <p>Pass-and-play, round after round. First to five wins the match.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card" href="2player/four-in-a-row/" data-players="2" style="--accent:#FF6B5A; --soft:#FFE6E1; --deep:#C93A2B">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/four-in-a-row/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Duel</span><span>5 min</span></p>
+            <h3>Four in a Row</h3>
+            <p>Drop discs, build a line of four, and take the match first to three.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card" href="2player/ping-pong/" data-players="2" style="--accent:#21B6A8; --soft:#DDF5F2; --deep:#0E7C72">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/ping-pong/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Arcade</span><span>3 min</span></p>
+            <h3>Ping Pong</h3>
+            <p>Two thumbs, one court, first to seven. Drag your half to return.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card" href="2player/snakes/" data-players="2" style="--accent:#21B6A8; --soft:#DDF5F2; --deep:#0E7C72">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/snakes/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Arcade</span><span>3 min</span></p>
+            <h3>Snakes</h3>
+            <p>Eat, grow, and cut off your rival in a best-of-three arena duel.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card" href="2player/paint-fight/" data-players="2" style="--accent:#FF8A3D; --soft:#FFE9D6; --deep:#B8500F">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/paint-fight/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Party</span><span>45 sec</span></p>
+            <h3>Paint Fight</h3>
+            <p>Forty-five seconds to cover more wall than your rival.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card" href="2player/memory-match/" data-players="2" style="--accent:#7C5CFF; --soft:#EAE4FF; --deep:#5334C9">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/memory-match/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Memory</span><span>5 min</span></p>
+            <h3>Memory Match</h3>
+            <p>Flip, remember, and race your rival to the most pairs.</p>
+            <span class="card-link">Play now
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="game-card game-card--wide" href="2player/pool/" data-players="2" style="--accent:#7C5CFF; --soft:#EAE4FF; --deep:#5334C9">
+          <div class="card-art">
+            <span class="player-badge">2 players</span>
+            <img src="2player/pool/assets/icon.svg" alt="" width="112" height="112" loading="lazy">
+            <span class="art-ring" aria-hidden="true"></span>
+          </div>
+          <div class="card-body">
+            <p class="card-meta"><span>Duel</span><span>10 min</span></p>
+            <h3>Pool</h3>
+            <p>A tidy little eight-ball table. Pot your group, then sink the eight.</p>
             <span class="card-link">Play now
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
@@ -193,17 +305,17 @@
       <div>
         <p class="eyebrow">In the workshop</p>
         <h2>More tiny games coming</h2>
-        <p class="upcoming-copy">The long-term shelf holds 50+ classics. These are next in line after the first five.</p>
+        <p class="upcoming-copy">The long-term shelf holds 50+ classics. These are next in line after the first twelve.</p>
       </div>
       <ul class="upcoming-list">
         <li>Solitaire</li>
         <li>Chess</li>
-        <li>Pool</li>
         <li>Air Hockey</li>
-        <li>Snakes</li>
         <li>Ludo</li>
         <li>Mancala</li>
         <li>Mini Golf</li>
+        <li>Checkers</li>
+        <li>Darts</li>
       </ul>
     </section>
   </main>

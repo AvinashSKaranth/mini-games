@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Paint Fight game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8A78"/>
+      <stop offset="1" stop-color="#FF5F4D"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4FD6C7"/>
+      <stop offset="1" stop-color="#17A99C"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#1E2433" stroke-opacity=".1" stroke-width="2"/>
+  <g fill="url(#teal)">
+    <circle cx="41" cy="24" r="10.5"/>
+    <circle cx="48" cy="18" r="3.2"/>
+    <circle cx="34" cy="17.5" r="2.6"/>
+    <circle cx="49" cy="29" r="2.2"/>
+    <circle cx="33.5" cy="29.5" r="1.9"/>
+    <circle cx="43" cy="12.5" r="1.6"/>
+  </g>
+  <g fill="url(#coral)">
+    <circle cx="23" cy="40" r="11"/>
+    <circle cx="14.5" cy="34" r="3.1"/>
+    <circle cx="31" cy="34.5" r="2.7"/>
+    <circle cx="13.5" cy="45" r="2.2"/>
+    <circle cx="31.5" cy="45.5" r="2.4"/>
+    <circle cx="23" cy="52" r="1.8"/>
+    <circle cx="17" cy="28.5" r="1.5"/>
+  </g>
+  <g fill="#FFFDF8">
+    <circle cx="37.5" cy="22" r="2.9"/>
+    <circle cx="44.6" cy="22" r="2.9"/>
+    <circle cx="19.6" cy="38" r="3"/>
+    <circle cx="27" cy="38" r="3"/>
+  </g>
+  <g fill="#1E2433">
+    <circle cx="38.3" cy="22.6" r="1.35"/>
+    <circle cx="45.4" cy="22.6" r="1.35"/>
+    <circle cx="20.4" cy="38.6" r="1.4"/>
+    <circle cx="27.8" cy="38.6" r="1.4"/>
+  </g>
+  <g fill="#FF6B5A" opacity=".55">
+    <circle cx="9" cy="52" r="1.4"/>
+    <circle cx="34" cy="54" r="1.2"/>
+  </g>
+  <g fill="#21B6A8" opacity=".55">
+    <circle cx="54" cy="38" r="1.3"/>
+    <circle cx="56" cy="14" r="1.2"/>
+  </g>
+</svg>

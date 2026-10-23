@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Fish">
+  <path d="M112 256c36-84 106-128 188-128 72 0 126 48 144 128-18 80-72 128-144 128-82 0-152-44-188-128z" fill="#0E7C72" stroke="#1E2433" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M118 256L44 188c-10 46-10 90 0 136z" fill="#0E7C72" stroke="#1E2433" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M250 142c14-38 50-58 90-50-14 34-42 54-78 64z" fill="#21B6A8" stroke="#1E2433" stroke-width="20" stroke-linejoin="round"/>
+  <path d="M318 198c-18 26-18 58 0 84" fill="none" stroke="#1E2433" stroke-width="12" stroke-linecap="round" opacity=".4"/>
+  <path d="M180 312c50 30 104 34 152 8" fill="none" stroke="#FFF9F0" stroke-width="15" stroke-linecap="round" opacity=".4"/>
+  <circle cx="352" cy="228" r="16" fill="#1E2433"/>
+  <circle cx="357" cy="222" r="5" fill="#FFF9F0"/>
+</svg>

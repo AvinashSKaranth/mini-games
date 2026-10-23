@@ -1,0 +1,336 @@
+:root {
+  --paper: #fff9f0;
+  --ink: #1e2433;
+  --ink-soft: #5b6377;
+  --coral: #ff6b5a;
+  --amber: #ffb703;
+  --teal: #21b6a8;
+  --teal-dark: #0e7c72;
+  --violet: #7c5cff;
+  --felt: #177a65;
+  --radius: 20px;
+  --shadow: 0 18px 40px -22px rgba(30, 36, 51, .55);
+}
+
+body { overflow-x: hidden; }
+
+.app {
+  max-width: 620px;
+  min-height: 100dvh;
+  padding: calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
+  gap: 8px;
+}
+
+.side-panel { display: contents; }
+
+/* top bar */
+.brand h1 { font-size: 1.2rem; }
+.brand p { font-size: .6rem; letter-spacing: .08em; }
+
+/* player cards */
+.players {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.player {
+  --accent: var(--coral);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 15px;
+  background: #fffdf8;
+  box-shadow: 0 0 0 1px rgba(30, 36, 51, .09);
+  transition: box-shadow .16s ease, transform .16s ease, background .16s ease;
+}
+
+.player--p2 { --accent: var(--teal); }
+
+.player.is-active {
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--accent), 0 10px 22px -16px rgba(30, 36, 51, .6);
+  transform: translateY(-1px);
+}
+
+.pball {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .92), transparent 45%),
+    radial-gradient(circle at 38% 32%, #ffe3a1, #ffb703 62%, #d89200);
+  box-shadow: 0 2px 4px rgba(30, 36, 51, .24);
+  color: var(--ink);
+}
+
+.pball b {
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff9f0;
+  font-size: .72rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pball.is-stripe {
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .9), transparent 42%),
+    linear-gradient(180deg, #fff9f0 0 23%, var(--violet) 23% 77%, #fff9f0 77%);
+}
+
+.pball.is-eight { background: radial-gradient(circle at 34% 28%, #46506a, #1e2433 58%, #101521); color: #fff9f0; }
+.pball.is-eight b { background: #fff9f0; color: var(--ink); }
+
+.pball.is-open {
+  background: transparent;
+  border: 2px dashed rgba(30, 36, 51, .26);
+  box-shadow: none;
+}
+.pball.is-open b { background: transparent; color: var(--ink-soft); font-size: .9rem; }
+
+.who { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
+.who strong {
+  font-size: .8rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.who small {
+  font-size: .62rem;
+  font-weight: 750;
+  color: var(--ink-soft);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.count {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+.count b {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.count small {
+  margin-top: 2px;
+  font-size: .5rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.player.is-open .count { visibility: hidden; }
+
+/* message / live status */
+.message {
+  width: 100%;
+  min-height: 42px;
+  margin: 0;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .66);
+  box-shadow: 0 0 0 1px rgba(30, 36, 51, .07);
+  font-size: .78rem;
+  font-weight: 700;
+  line-height: 1.32;
+  color: var(--ink);
+  transition: box-shadow .16s ease;
+}
+
+.message::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 0 4px rgba(255, 107, 90, .15);
+}
+
+.message.is-p2::before {
+  background: var(--teal);
+  box-shadow: 0 0 0 4px rgba(33, 182, 168, .16);
+}
+
+.message.is-hand { box-shadow: 0 0 0 2px rgba(255, 183, 3, .55); }
+.message.is-over { box-shadow: 0 0 0 2px rgba(30, 36, 51, .18); }
+
+/* table */
+.table-stage {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 224px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.table-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* power + actions */
+.power-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.power-label {
+  flex: 0 0 auto;
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.power-meter {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 40px;
+  height: 10px;
+  border-radius: 99px;
+  background: rgba(30, 36, 51, .1);
+  box-shadow: 0 1px 2px rgba(30, 36, 51, .12) inset;
+  overflow: hidden;
+}
+
+#power-fill {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--amber) 58%, var(--coral));
+  transition: width .06s linear;
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: .74rem;
+  border-radius: 11px;
+  flex: 0 0 auto;
+}
+
+.hint {
+  width: 100%;
+  margin: 0;
+  font-size: .68rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+/* win / loss overlay */
+.veil { background: rgba(30, 36, 51, .34); }
+.veil-card { max-width: 330px; padding: 22px 20px; }
+.veil-card img { border-radius: 16px; box-shadow: 0 8px 18px -10px rgba(30, 36, 51, .5); }
+.veil-card h2 { font-size: 1.45rem; }
+.veil-actions .btn { width: 100%; text-decoration: none; }
+
+/* compact phones */
+@media (max-height: 680px) {
+  .app { gap: 6px; padding-top: calc(8px + env(safe-area-inset-top)); }
+  .brand p { display: none; }
+  .brand h1 { font-size: 1.12rem; }
+  .players { gap: 5px; }
+  .player { padding: 6px 8px; }
+  .pball { width: 30px; height: 30px; flex-basis: 30px; }
+  .pball b { width: 19px; height: 19px; font-size: .66rem; }
+  .message { min-height: 38px; padding: 6px 10px; font-size: .73rem; }
+  .table-stage { min-height: 200px; }
+  .hint { font-size: .64rem; }
+}
+
+@media (max-width: 350px) {
+  .app { padding-left: 8px; padding-right: 8px; }
+  .who strong { font-size: .75rem; }
+  .who small { font-size: .6rem; }
+  .count b { font-size: 1.05rem; }
+}
+
+/* landscape phones */
+@media (orientation: landscape) and (max-height: 620px) {
+  .app {
+    max-width: 1040px;
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(232px, 310px);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "top top"
+      "table stop"
+      "table sbottom";
+    align-items: center;
+    gap: 6px 16px;
+    padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .topbar { grid-area: top; align-self: start; }
+  .table-stage { grid-area: table; height: 100%; min-height: 0; align-self: stretch; }
+  .side-panel { display: flex; flex-direction: column; gap: 6px; width: 100%; min-width: 0; }
+  .side-panel--top { grid-area: stop; align-self: center; justify-content: center; }
+  .side-panel--bottom { grid-area: sbottom; align-self: start; justify-content: flex-start; }
+
+  .brand h1 { font-size: 1.1rem; }
+  .brand p { display: none; }
+  .brand img { width: 36px; height: 36px; }
+  .icon-btn { width: 38px; height: 38px; flex-basis: 38px; border-radius: 12px; }
+
+  .player { padding: 6px 8px; }
+  .pball { width: 30px; height: 30px; flex-basis: 30px; }
+  .pball b { width: 19px; height: 19px; font-size: .64rem; }
+  .who strong { font-size: .76rem; }
+  .who small { font-size: .57rem; }
+  .count b { font-size: 1.05rem; }
+
+  .message { min-height: 36px; padding: 5px 10px; font-size: .7rem; }
+  .power-row { gap: 6px; }
+  .hint { text-align: left; font-size: .63rem; }
+  .btn--sm { min-height: 32px; padding: 0 10px; font-size: .68rem; }
+
+  .veil-card { max-width: 360px; padding: 16px 18px; }
+  .veil-card img { width: 48px; height: 48px; }
+  .veil-card h2 { font-size: 1.25rem; }
+  .veil-actions { flex-direction: row; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .player,
+  .message,
+  #power-fill { transition: none; }
+}

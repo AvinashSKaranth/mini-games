@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Leaf">
+  <path d="M256 64c100 58 156 148 132 246-20 82-72 120-132 140-60-20-112-58-132-140C100 212 156 122 256 64z" fill="#21B6A8" stroke="#1E2433" stroke-width="26" stroke-linejoin="round"/>
+  <path d="M256 108v300M256 206l-56-40M256 264l-64-46M256 320l-56-40" fill="none" stroke="#1E2433" stroke-width="14" stroke-linecap="round" opacity=".45"/>
+  <path d="M236 96c-44 42-70 98-74 154" fill="none" stroke="#FFF9F0" stroke-width="16" stroke-linecap="round" opacity=".45"/>
+</svg>

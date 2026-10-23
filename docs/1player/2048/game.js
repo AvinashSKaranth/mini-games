@@ -1,8 +1,10 @@
 import { applyMove, newGame } from './engine.js';
+import { softRefresh } from '../../shared/refresh.js';
 
 const $ = (id) => document.getElementById(id);
 
 const boardEl = $('board');
+const playField = document.querySelector('.board-shell');
 const tilesEl = $('tiles');
 const scoreEl = $('score');
 const bestEl = $('best');
@@ -253,8 +255,10 @@ window.addEventListener('keydown', (event) => {
 });
 
 /* Buttons */
-$('restart').addEventListener('click', start);
-$('new-game').addEventListener('click', start);
+const restart = () => softRefresh(playField, start);
+
+$('restart').addEventListener('click', restart);
+$('new-game').addEventListener('click', restart);
 undoBtn.addEventListener('click', undo);
 
 veilPrimary.addEventListener('click', () => {
@@ -262,11 +266,11 @@ veilPrimary.addEventListener('click', () => {
     hideVeil();
     if (state.status === 'over') showVeil('over');
   } else {
-    start();
+    restart();
   }
 });
 
-veilSecondary.addEventListener('click', start);
+veilSecondary.addEventListener('click', restart);
 
 /* Boot */
 bestEl.textContent = best.toLocaleString();

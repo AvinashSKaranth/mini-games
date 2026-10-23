@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Trophy">
+  <g stroke="#1E2433" stroke-width="20" stroke-linejoin="round">
+    <path d="M150 88h212v78c0 76-46 128-106 128s-106-52-106-128z" fill="#FFD166"/>
+    <path d="M150 116h-46v34c0 40 28 68 66 70M362 116h46v34c0 40-28 68-66 70" fill="none" stroke-linecap="round"/>
+    <path d="M256 294v72" fill="none" stroke-width="30"/>
+    <path d="M186 366h140l12 56H174z" fill="#FF6B5A"/>
+    <path d="M156 422h200v36H156z" fill="#FFB703"/>
+  </g>
+  <circle cx="256" cy="176" r="40" fill="#21B6A8" stroke="#1E2433" stroke-width="14"/>
+  <path d="M256 156l6 14 15 1-11 10 3 15-13-8-13 8 3-15-11-10 15-1z" fill="#FFF9F0"/>
+  <path d="M196 112v52c0 26 10 48 28 64" fill="none" stroke="#FFF9F0" stroke-width="12" stroke-linecap="round" opacity=".6"/>
+</svg>

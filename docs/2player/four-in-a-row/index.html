@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play two-player Four in a Row on one device. Drop discs, line up four, and win three rounds to take the match.">
+  <title>Four in a Row · 2 Player · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Four in a Row</h1>
+          <p>2 players · one device</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" aria-label="Start a new match">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="side-panel side-panel--top">
+      <div class="matchbar">
+        <span id="round-label">Round 1</span>
+        <span class="target">First to 3 wins</span>
+      </div>
+
+      <section class="players" aria-label="Scoreboard">
+        <div class="player player--p1 is-active" id="player-1">
+          <span class="chip" aria-hidden="true"></span>
+          <span class="who"><strong>Player 1</strong><small>Coral discs</small></span>
+          <b class="wins" id="score-1">0</b>
+        </div>
+        <div class="player player--p2" id="player-2">
+          <span class="chip" aria-hidden="true"></span>
+          <span class="who"><strong>Player 2</strong><small>Teal discs</small></span>
+          <b class="wins" id="score-2">0</b>
+        </div>
+      </section>
+
+      <div class="turn-slot">
+        <div class="turnbar" id="turnbar">
+          <span class="turn-dot" aria-hidden="true"></span>
+          <strong id="turn-text">Player 1's turn</strong>
+        </div>
+
+        <div class="resultbar" id="resultbar" hidden>
+          <span id="result-text">Player 1 wins the round</span>
+          <button class="btn btn--primary" id="next-round">Next round</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="board-wrap">
+      <div class="board" id="board" role="group" aria-label="Four in a Row board, 7 columns by 6 rows. Choose a column to drop a disc, or press 1 through 7." aria-describedby="hint">
+        <div class="board-grid" id="grid" aria-hidden="true"></div>
+        <div class="discs" id="discs" aria-hidden="true"></div>
+        <div class="cols" id="cols"></div>
+      </div>
+    </div>
+
+    <div class="side-panel side-panel--bottom">
+      <div class="actions">
+        <button class="btn btn--ghost" id="reset-match">New match</button>
+        <p class="hint" id="hint">Tap a column or press 1–7. Winner starts the next round.</p>
+      </div>
+    </div>
+
+    <div class="veil" id="veil" hidden>
+      <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title" aria-describedby="veil-copy">
+        <img src="assets/icon.svg" alt="" width="64" height="64">
+        <p class="eyebrow">Match complete</p>
+        <h2 id="veil-title">Player 1 wins!</h2>
+        <p id="veil-copy">Three rounds to none.</p>
+        <div class="veil-actions">
+          <button class="btn btn--primary" id="veil-rematch">Rematch</button>
+          <a class="btn btn--ghost" href="../../index.html">All games</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

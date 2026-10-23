@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Four in a Row game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+    <linearGradient id="board" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A3450"/>
+      <stop offset="1" stop-color="#1A2136"/>
+    </linearGradient>
+    <radialGradient id="coral" cx="34%" cy="28%" r="82%">
+      <stop offset="0" stop-color="#FFB3A8"/>
+      <stop offset=".5" stop-color="#FF6B5A"/>
+      <stop offset="1" stop-color="#D2452F"/>
+    </radialGradient>
+    <radialGradient id="teal" cx="34%" cy="28%" r="82%">
+      <stop offset="0" stop-color="#9DF0E7"/>
+      <stop offset=".5" stop-color="#21B6A8"/>
+      <stop offset="1" stop-color="#0B6F66"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="5.5" y="9.5" width="53" height="45" rx="9.5" fill="url(#board)"/>
+  <rect x="5.5" y="9.5" width="53" height="45" rx="9.5" fill="none" stroke="#FFF9F0" stroke-opacity=".12"/>
+
+  <g fill="#37425F">
+    <circle cx="13" cy="17" r="5.1"/><circle cx="26" cy="17" r="5.1"/>
+    <circle cx="39" cy="17" r="5.1"/><circle cx="52" cy="17" r="5.1"/>
+    <circle cx="52" cy="32" r="5.1"/>
+    <circle cx="52" cy="47" r="5.1"/>
+  </g>
+
+  <g fill="url(#teal)">
+    <circle cx="13" cy="32" r="5.1"/>
+    <circle cx="26" cy="32" r="5.1"/>
+    <circle cx="39" cy="32" r="5.1"/>
+  </g>
+
+  <g fill="url(#coral)">
+    <circle cx="13" cy="47" r="5.1"/>
+    <circle cx="26" cy="47" r="5.1"/>
+    <circle cx="39" cy="47" r="5.1"/>
+    <circle cx="52" cy="47" r="5.1"/>
+  </g>
+
+  <g fill="#FFF9F0" fill-opacity=".3">
+    <ellipse cx="11.6" cy="14.9" rx="1.6" ry="1.1" transform="rotate(-28 11.6 14.9)"/>
+    <ellipse cx="11.6" cy="29.9" rx="1.6" ry="1.1" transform="rotate(-28 11.6 29.9)"/>
+    <ellipse cx="11.6" cy="44.9" rx="1.6" ry="1.1" transform="rotate(-28 11.6 44.9)"/>
+    <ellipse cx="24.6" cy="44.9" rx="1.6" ry="1.1" transform="rotate(-28 24.6 44.9)"/>
+    <ellipse cx="37.6" cy="44.9" rx="1.6" ry="1.1" transform="rotate(-28 37.6 44.9)"/>
+    <ellipse cx="50.6" cy="44.9" rx="1.6" ry="1.1" transform="rotate(-28 50.6 44.9)"/>
+  </g>
+</svg>

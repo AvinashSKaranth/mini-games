@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v4';
+const CACHE = 'mini-games-v5';
 
 const CORE = [
   './',
@@ -37,7 +37,46 @@ const CORE = [
   './3player/whack-a-mole/game.js',
   './3player/whack-a-mole/assets/icon.svg',
   './3player/whack-a-mole/assets/mole.svg',
-  './3player/whack-a-mole/assets/trophy.svg'
+  './3player/whack-a-mole/assets/trophy.svg',
+  './shared/game.css',
+  './shared/refresh.js',
+  './1player/word-guess/',
+  './1player/word-guess/style.css',
+  './1player/word-guess/game.js',
+  './1player/word-guess/assets/icon.svg',
+  './2player/four-in-a-row/',
+  './2player/four-in-a-row/style.css',
+  './2player/four-in-a-row/game.js',
+  './2player/four-in-a-row/assets/icon.svg',
+  './2player/ping-pong/',
+  './2player/ping-pong/style.css',
+  './2player/ping-pong/game.js',
+  './2player/ping-pong/assets/icon.svg',
+  './2player/pool/',
+  './2player/pool/style.css',
+  './2player/pool/game.js',
+  './2player/pool/assets/icon.svg',
+  './2player/snakes/',
+  './2player/snakes/style.css',
+  './2player/snakes/game.js',
+  './2player/snakes/assets/icon.svg',
+  './2player/paint-fight/',
+  './2player/paint-fight/style.css',
+  './2player/paint-fight/game.js',
+  './2player/paint-fight/assets/icon.svg',
+  './2player/memory-match/',
+  './2player/memory-match/style.css',
+  './2player/memory-match/game.js',
+  './2player/memory-match/assets/icon.svg',
+  './2player/memory-match/assets/bolt.svg',
+  './2player/memory-match/assets/fish.svg',
+  './2player/memory-match/assets/flower.svg',
+  './2player/memory-match/assets/gem.svg',
+  './2player/memory-match/assets/heart.svg',
+  './2player/memory-match/assets/leaf.svg',
+  './2player/memory-match/assets/moon.svg',
+  './2player/memory-match/assets/star.svg',
+  './2player/memory-match/assets/trophy.svg'
 ];
 
 self.addEventListener('install', (event) => {

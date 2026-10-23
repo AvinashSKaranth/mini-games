@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Snakes game icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F3E4CF"/>
+    </linearGradient>
+    <linearGradient id="arena" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#232B3E"/>
+      <stop offset="1" stop-color="#151A27"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.8"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="5" y="5" width="54" height="54" rx="12" fill="url(#arena)" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <g stroke="#FFFFFF" stroke-opacity=".07" stroke-width=".8">
+    <path d="M18.5 6v52M32 6v52M45.5 6v52M6 18.5h52M6 32h52M6 45.5h52"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 51V42a7 7 0 0 1 7-7h4" stroke="#FF6B5A" stroke-opacity=".55" stroke-width="10" filter="url(#glow)"/>
+    <path d="M13 51V42a7 7 0 0 1 7-7h4" stroke="#FF6B5A" stroke-width="7"/>
+    <path d="M51 13v9a7 7 0 0 1-7 7h-4" stroke="#21B6A8" stroke-opacity=".55" stroke-width="10" filter="url(#glow)"/>
+    <path d="M51 13v9a7 7 0 0 1-7 7h-4" stroke="#21B6A8" stroke-width="7"/>
+  </g>
+  <circle cx="28" cy="35" r="4.8" fill="#FF6B5A"/>
+  <circle cx="36" cy="29" r="4.8" fill="#21B6A8"/>
+  <g fill="#FFFDF8">
+    <circle cx="29.6" cy="33.3" r="1.15"/>
+    <circle cx="29.6" cy="36.7" r="1.15"/>
+    <circle cx="34.4" cy="27.3" r="1.15"/>
+    <circle cx="34.4" cy="30.7" r="1.15"/>
+  </g>
+  <g fill="#1E2433">
+    <circle cx="30.1" cy="33.3" r=".55"/>
+    <circle cx="30.1" cy="36.7" r=".55"/>
+    <circle cx="33.9" cy="27.3" r=".55"/>
+    <circle cx="33.9" cy="30.7" r=".55"/>
+  </g>
+  <circle cx="32" cy="45" r="3.6" fill="#FFB703" fill-opacity=".5" filter="url(#glow)"/>
+  <circle cx="32" cy="45" r="3.3" fill="#FFB703"/>
+  <ellipse cx="33.4" cy="41.1" rx="1.5" ry=".8" transform="rotate(-32 33.4 41.1)" fill="#7BD88F"/>
+  <circle cx="30.9" cy="43.9" r=".8" fill="#FFFDF8" fill-opacity=".7"/>
+</svg>
