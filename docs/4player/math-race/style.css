@@ -1,0 +1,318 @@
+:root {
+  --p1: #ff6b5a;
+  --p2: #21b6a8;
+  --p3: #7c5cff;
+  --p4: #3d6fb4;
+  --p1-soft: #ffe6e1;
+  --p2-soft: #d8f5f1;
+  --p3-soft: #eae4ff;
+  --p4-soft: #dce8fa;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.app {
+  max-width: 560px;
+  gap: 8px;
+}
+
+.board {
+  position: relative;
+  width: 100%;
+}
+
+/* ---------- lanes ---------- */
+.lanes {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.lane {
+  --accent: var(--p1);
+  --soft: var(--p1-soft);
+  position: relative;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--soft) 0%, #fffdf8 72%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color .18s ease-out, box-shadow .18s ease-out, opacity .18s ease-out;
+}
+
+.lane--p1 { --accent: var(--p1); --soft: var(--p1-soft); }
+.lane--p2 { --accent: var(--p2); --soft: var(--p2-soft); }
+.lane--p3 { --accent: var(--p3); --soft: var(--p3-soft); }
+.lane--p4 { --accent: var(--p4); --soft: var(--p4-soft); }
+
+.lane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.lane-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.pips {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  width: 58px;
+  flex: 0 1 58px;
+}
+
+.pips i {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(30, 36, 51, .13);
+  transition: background .16s ease-out, transform .16s ease-out;
+}
+
+.pips i.is-on {
+  background: var(--accent);
+}
+
+.pips i.is-new {
+  transform: scaleY(1.7);
+}
+
+.question {
+  margin: 0;
+  min-height: 1.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.42rem;
+  font-weight: 900;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.answers button {
+  min-height: 40px;
+  padding: 0 6px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background .12s ease-out, transform .1s ease-out;
+}
+
+.answers button:active { transform: scale(.97); }
+
+.answers button.is-right {
+  background: color-mix(in srgb, var(--accent) 22%, #fff);
+  border-color: var(--accent);
+}
+
+.answers button.is-wrong {
+  background: #ffe6e1;
+  border-color: var(--coral);
+}
+
+.answers button:focus-visible,
+.gate-card .btn:focus-visible {
+  outline: 3px solid rgba(124, 92, 255, .4);
+  outline-offset: 2px;
+}
+
+.lane.is-locked .answers {
+  pointer-events: none;
+}
+
+.lane.is-locked .answers button {
+  opacity: .45;
+}
+
+.lane.is-locked .lane-name::after {
+  content: 'wait';
+  margin-left: 4px;
+  font-size: .46rem;
+  letter-spacing: .08em;
+  color: var(--coral);
+}
+
+.lane.is-wrong {
+  border-color: var(--coral);
+  animation: lane-shake .32s ease-in-out;
+}
+
+.lane.is-winner {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+@keyframes lane-shake {
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+
+/* ---------- start gate ---------- */
+.start-gate {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255, 249, 240, .74);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.gate-card {
+  width: 100%;
+  max-width: 300px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fffdf8;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.gate-card h2 {
+  margin: 2px 0 6px;
+  font-size: 1.42rem;
+  letter-spacing: -.02em;
+}
+
+.gate-card p:not(.eyebrow) {
+  margin: 0 0 12px;
+  font-size: .8rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.gate-card .btn { width: 100%; }
+
+/* ---------- podium ---------- */
+.podium {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.podium-row {
+  --accent: var(--ink);
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .66);
+  font-size: .78rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+.podium-place {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 7px;
+  background: var(--accent);
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 900;
+}
+
+.podium-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.podium-score {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+/* ---------- landscape ---------- */
+@media (orientation: landscape) and (max-height: 620px) {
+  .app {
+    max-width: 900px;
+    gap: 6px;
+  }
+
+  .lanes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .lane {
+    padding: 6px;
+    gap: 4px;
+    border-radius: 14px;
+  }
+
+  .question { font-size: 1.18rem; }
+
+  .answers button {
+    min-height: 38px;
+    font-size: .92rem;
+  }
+
+  .pips { width: 100%; flex-basis: 44px; }
+
+  .hint { display: none; }
+
+  .gate-card { max-width: 380px; padding: 12px; }
+  .gate-card p:not(.eyebrow) { margin-bottom: 8px; font-size: .74rem; }
+}
+
+@media (max-height: 640px) and (orientation: portrait) {
+  .question { font-size: 1.24rem; min-height: 1.5em; }
+  .answers button { min-height: 38px; }
+  .lane { padding: 6px; gap: 4px; }
+}

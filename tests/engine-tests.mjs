@@ -26,6 +26,13 @@ import {
   scoreFor,
   windDrift
 } from '../docs/4player/archery/engine.js';
+import {
+  GOAL,
+  formatSeconds,
+  levelFor,
+  makeQuestion,
+  rankPlayers as rankRacers
+} from '../docs/4player/math-race/engine.js';
 
 // ---------- 2048 ----------
 const tile = (value, r, c, id) => ({ id, value, r, c });
@@ -183,5 +190,31 @@ assert.equal(nextWind(() => 0.5), 0);
 const ranking = rankPlayers([14, 14, 9, 3], [0, 2, 1, 0]);
 assert.deepEqual(ranking.map((entry) => entry.index), [1, 0, 2, 3]);
 assert.deepEqual(rankPlayers([5, 6, 7, 8]).map((entry) => entry.index), [3, 2, 1, 0]);
+
+// ---------- Math Race ----------
+const questionRng = mulberry32(11);
+for (let level = 1; level <= 8; level += 1) {
+  for (let i = 0; i < 40; i += 1) {
+    const question = makeQuestion(level, questionRng);
+    const expected =
+      question.op === '+' ? question.a + question.b : question.op === '−' ? question.a - question.b : question.a * question.b;
+    assert.equal(question.answer, expected, `level ${level} ${question.a} ${question.op} ${question.b}`);
+    assert.equal(question.options.length, 3);
+    assert.ok(question.options.includes(question.answer));
+    assert.equal(new Set(question.options).size, 3, 'options are unique');
+    for (const option of question.options) assert.ok(option >= 0, 'no negative options');
+    if (level <= 2) assert.ok(question.a + question.b <= 18);
+  }
+}
+
+assert.equal(levelFor(0), 1);
+assert.equal(levelFor(4), 4);
+assert.equal(levelFor(GOAL), 8);
+assert.equal(levelFor(99), 8);
+
+assert.deepEqual(rankRacers([8, 3, 0, 1]).map((entry) => entry.index), [0, 1, 3, 2]);
+assert.deepEqual(rankRacers([2, 2, 0, 0]).map((entry) => entry.index), [0, 1, 2, 3]);
+assert.equal(formatSeconds(1500), '1.5s');
+assert.equal(formatSeconds(0), '0.0s');
 
 console.log('engine tests passed');

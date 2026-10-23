@@ -261,11 +261,11 @@ Rules:
 
 **2 player (12):** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Air Hockey, Chess, Mancala, Mini Golf, Checkers, Paint Fight, Memory Match.
 
-**4 player (6):** Whack-a-Mole, Snakes 4P, Paint Fight 4P, Spinner War 4P, Tug of War 2v2, Archery.
+**4 player (7):** Whack-a-Mole, Snakes 4P, Paint Fight 4P, Spinner War 4P, Tug of War 2v2, Archery, Math Race.
 
 **AI modes:** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Chess, Checkers. Air Hockey and Mancala are local 2P only. Darts is counted as the sixth 1P card because solo 501 is its primary mode, while the same build supports local 2P.
 
-**Still queued from P1:** Math Race, plus the P1 solo/duel titles not in wave 1.
+**Still queued from P1:** the P1 solo/duel titles not in wave 1, plus Reflex Race and Ludo for the party bucket.
 
 ## 15. Definition of done
 

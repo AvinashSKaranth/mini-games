@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v8';
+const CACHE = 'mini-games-v9';
 
 const CORE = [
   './',
@@ -129,7 +129,12 @@ const CORE = [
   './4player/archery/style.css',
   './4player/archery/game.js',
   './4player/archery/engine.js',
-  './4player/archery/assets/icon.svg'
+  './4player/archery/assets/icon.svg',
+  './4player/math-race/',
+  './4player/math-race/style.css',
+  './4player/math-race/game.js',
+  './4player/math-race/engine.js',
+  './4player/math-race/assets/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
