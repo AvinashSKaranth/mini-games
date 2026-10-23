@@ -1,4 +1,4 @@
-const CACHE = 'mini-games-v10';
+const CACHE = 'mini-games-v11';
 
 const CORE = [
   './',
@@ -139,7 +139,12 @@ const CORE = [
   './1player/hangman/style.css',
   './1player/hangman/game.js',
   './1player/hangman/engine.js',
-  './1player/hangman/assets/icon.svg'
+  './1player/hangman/assets/icon.svg',
+  './1player/water-sort/',
+  './1player/water-sort/style.css',
+  './1player/water-sort/game.js',
+  './1player/water-sort/engine.js',
+  './1player/water-sort/assets/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

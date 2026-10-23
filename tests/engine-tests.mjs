@@ -43,6 +43,17 @@ import {
   pickWord,
   wrongLetters
 } from '../docs/1player/hangman/engine.js';
+import {
+  CAPACITY,
+  LEVELS,
+  canPour,
+  generateTubes,
+  isComplete,
+  isSolvable,
+  isUniform,
+  pour,
+  topRun
+} from '../docs/1player/water-sort/engine.js';
 
 // ---------- 2048 ----------
 const tile = (value, r, c, id) => ({ id, value, r, c });
@@ -244,5 +255,52 @@ assert.deepEqual(wrongLetters('TIGER', new Set(['T', 'A', 'B'])), ['A', 'B']);
 assert.equal(livesLeft('TIGER', new Set(['T', 'A', 'B'])), MAX_MISSES - 2);
 assert.deepEqual(missingLetters('BANANA', new Set(['B'])), ['A', 'N']);
 assert.deepEqual(missingLetters('BANANA', new Set([...'BAN'])), []);
+
+// ---------- Water Sort ----------
+assert.equal(CAPACITY, 4);
+assert.equal(topRun([]), 0);
+assert.equal(topRun([0, 1, 1, 1]), 3);
+assert.equal(topRun([0, 0, 1]), 1);
+assert.equal(isUniform([]), true);
+assert.equal(isUniform([2, 2]), true);
+assert.equal(isUniform([2, 1]), false);
+assert.equal(isComplete([[0, 0], [], [1, 1, 1, 1]]), true);
+assert.equal(isComplete([[0, 1], [], [1, 1, 1]]), false);
+
+const tubes = [[0, 1, 0, 1], [1, 0, 1, 0], [], []];
+assert.equal(canPour(tubes, 0, 2), true);
+assert.equal(canPour(tubes, 0, 1), false);
+assert.equal(canPour(tubes, 0, 0), false);
+assert.equal(canPour([[0, 0, 0, 0], [0, 0, 0, 0]], 0, 1), false, 'full target');
+assert.equal(pour(tubes, 0, 1), null);
+
+const poured = pour(tubes, 0, 2);
+assert.deepEqual(poured.tubes[0], [0, 1, 0]);
+assert.deepEqual(poured.tubes[2], [1]);
+assert.equal(poured.moved, 1);
+assert.deepEqual(tubes[0], [0, 1, 0, 1], 'pour does not mutate the input');
+
+const stacked = pour([[0, 0, 1, 1], [1, 1], []], 0, 1);
+assert.deepEqual(stacked.tubes[1], [1, 1, 1, 1]);
+assert.deepEqual(stacked.tubes[0], [0, 0]);
+assert.equal(stacked.moved, 2);
+
+const partial = pour([[0, 1], [], [1]], 0, 1);
+assert.deepEqual(partial.tubes[1], [1]);
+assert.equal(partial.moved, 1);
+
+for (const level of Object.keys(LEVELS)) {
+  const dealt = generateTubes(level, mulberry32(3));
+  assert.equal(dealt.length, LEVELS[level].colors + LEVELS[level].empty, `${level} tube count`);
+  assert.equal(
+    dealt.reduce((total, tube) => total + tube.length, 0),
+    LEVELS[level].colors * CAPACITY,
+    `${level} unit count`
+  );
+  assert.equal(isComplete(dealt), false, `${level} deal starts unsolved`);
+  assert.equal(isSolvable(dealt), true, `${level} deal is solvable`);
+}
+
+assert.equal(isSolvable([[0, 1], [1, 0], [], []]), true);
 
 console.log('engine tests passed');

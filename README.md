@@ -1,6 +1,6 @@
 # Mini Games
 
-Twenty-six free mini games for one, two, or four players. No accounts, no ads, no install, and no network connection needed after the first load.
+Twenty-seven free mini games for one, two, or four players. No accounts, no ads, no install, and no network connection needed after the first load.
 
 **Live site:** `docs/index.html` (deploy the `docs` folder with GitHub Pages)
 
@@ -13,6 +13,7 @@ Twenty-six free mini games for one, two, or four players. No accounts, no ads, n
 | Minesweeper | 1 | Solo | `docs/1player/minesweeper/` |
 | Word Guess | 1 | Solo | `docs/1player/word-guess/` |
 | Hangman | 1 | Solo | `docs/1player/hangman/` |
+| Water Sort | 1 | Solo | `docs/1player/water-sort/` |
 | Solitaire | 1 | Solo | `docs/1player/solitaire/` |
 | Darts | 1 | Solo 501 or local 2P | `docs/2player/darts/` |
 | Tic Tac Toe | 2 | Local 2P or AI | `docs/2player/tic-tac-toe/` |
@@ -35,7 +36,7 @@ Twenty-six free mini games for one, two, or four players. No accounts, no ads, n
 | Archery | 4 | Hot-seat 4P | `docs/4player/archery/` |
 | Math Race | 4 | Local 4P | `docs/4player/math-race/` |
 
-Catalog counts shown on the hub: **26 games — 1P 7, 2P 12, 4P 7**. Darts is the sixth 1P card because solo 501 is its primary mode; the same build also supports local 2P.
+Catalog counts shown on the hub: **27 games — 1P 8, 2P 12, 4P 7**. Darts is the sixth 1P card because solo 501 is its primary mode; the same build also supports local 2P.
 
 ## Run locally
 
@@ -63,7 +64,7 @@ All paths are relative, so the same build works at a user root or a repository s
 - Original local SVG art. Every game's assets live in its own `assets/` folder.
 - Responsive portrait and landscape layouts, including board-plus-side-panel layouts for landscape phones and 2×2/4-column party layouts.
 - Local 2P remains the default in every duel; visible `2 Players` / `vs AI` switches are used where an AI exists.
-- `docs/sw.js` pre-caches the hub and all twenty-six games. Navigation requests are network-first; assets are cache-first. The cache name is versioned (`mini-games-v10`) and installs refresh each core asset with `cache: 'reload'`.
+- `docs/sw.js` pre-caches the hub and all twenty-seven games. Navigation requests are network-first; assets are cache-first. The cache name is versioned (`mini-games-v11`) and installs refresh each core asset with `cache: 'reload'`.
 - New games share `docs/shared/game.css` and `docs/shared/refresh.js`; every reset/rematch fades the play surface, rebuilds it, then fades back in, respecting `prefers-reduced-motion`.
 - `docs/manifest.webmanifest` provides the installable PWA metadata.
 
@@ -71,7 +72,7 @@ Design conventions, art rules, reset behavior, accessibility notes, and the defi
 
 ## Checks
 
-- Engine tests: `node tests/engine-tests.mjs` (2048, Minesweeper, Sudoku, Archery, Math Race, Hangman).
+- Engine tests: `node tests/engine-tests.mjs` (2048, Minesweeper, Sudoku, Archery, Math Race, Hangman, Water Sort).
 - Syntax: `node --check` on every JS file.
-- Static link/asset check across all twenty-six game folders.
+- Static link/asset check across all twenty-seven game folders.
 - Browser smoke tests at 320×568, 390×844, 568×320, and 844×390, plus an offline reload of the hub and representative games.

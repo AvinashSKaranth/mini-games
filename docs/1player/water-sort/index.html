@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play Water Sort offline. Pour coloured liquid between tubes until every tube holds a single colour, across three difficulties.">
+  <title>Water Sort · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Water Sort</h1>
+          <p>1 player · pour puzzle</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="new-game" type="button" aria-label="New deal">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <div class="difficulty" role="group" aria-label="Difficulty">
+      <button type="button" data-level="easy" class="is-active" aria-pressed="true">Easy</button>
+      <button type="button" data-level="medium" aria-pressed="false">Medium</button>
+      <button type="button" data-level="hard" aria-pressed="false">Hard</button>
+    </div>
+
+    <div class="board" id="board">
+      <div class="tubes" id="tubes" role="group" aria-label="Water tubes"></div>
+    </div>
+
+    <section class="meta" aria-label="Puzzle status">
+      <div><span>Moves</span><strong id="moves">0</strong></div>
+      <div><span>Best</span><strong id="best">—</strong></div>
+      <div><span>Tubes</span><strong id="tube-count">6</strong></div>
+    </section>
+
+    <div class="tools">
+      <button class="btn" id="undo" type="button" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h9a5 5 0 0 1 0 10H8M4 9l4-4M4 9l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Undo
+      </button>
+      <button class="btn btn--primary" id="new-deal" type="button">New deal</button>
+    </div>
+
+    <p class="hint">Tap a tube to lift its top colour, then tap another to pour. Colours must match, or the tube must be empty.</p>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow" id="veil-eyebrow">All sorted</p>
+      <h2 id="veil-title">Every tube one colour</h2>
+      <p id="veil-copy">Solved in 24 moves.</p>
+      <dl class="result" id="veil-stats"></dl>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="veil-primary" type="button">New deal</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
