@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="board" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF8"/>
+      <stop offset="1" stop-color="#F3E6D2"/>
+    </linearGradient>
+    <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2A65A"/>
+      <stop offset="1" stop-color="#E2892B"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3AD4C4"/>
+      <stop offset="1" stop-color="#21B6A8"/>
+    </linearGradient>
+    <linearGradient id="grape" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9B83FF"/>
+      <stop offset="1" stop-color="#7C5CFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#board)" stroke="#1E2433" stroke-opacity=".14" stroke-width="2"/>
+
+  <!-- board grid -->
+  <g fill="none" stroke="#1E2433" stroke-opacity=".12" stroke-width="2">
+    <path d="M20 40h72M20 62h72M20 84h72M40 24v72M62 24v72M84 24v72"/>
+  </g>
+
+  <!-- L piece (oak) -->
+  <g stroke="#1E2433" stroke-opacity=".28" stroke-width="2.4" stroke-linejoin="round">
+    <rect x="22" y="26" width="20" height="20" rx="5" fill="url(#oak)"/>
+    <rect x="22" y="48" width="20" height="20" rx="5" fill="url(#oak)"/>
+    <rect x="44" y="48" width="20" height="20" rx="5" fill="url(#oak)"/>
+  </g>
+
+  <!-- square (mint) -->
+  <g stroke="#1E2433" stroke-opacity=".28" stroke-width="2.4" stroke-linejoin="round">
+    <rect x="66" y="26" width="22" height="42" rx="6" fill="url(#mint)"/>
+  </g>
+
+  <!-- line (grape) -->
+  <g stroke="#1E2433" stroke-opacity=".28" stroke-width="2.4" stroke-linejoin="round">
+    <rect x="22" y="70" width="66" height="18" rx="6" fill="url(#grape)"/>
+  </g>
+
+  <!-- wood grain highlights -->
+  <g stroke="#FFFDF8" stroke-opacity=".5" stroke-width="2.4" stroke-linecap="round">
+    <path d="M27 31h10"/>
+    <path d="M27 53h10"/>
+    <path d="M71 31h12"/>
+    <path d="M27 75h56"/>
+  </g>
+</svg>

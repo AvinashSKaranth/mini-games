@@ -4,7 +4,7 @@ This file is the working brief for anyone (human or AI) changing this repository
 
 ## 1. Product shape
 
-- **12 → 23 game collection** of short, pass-and-play browser games.
+- **12 → 37 game collection** of short, pass-and-play browser games.
 - **Player-count buckets:** `1player`, `2player`, `4player`. There is no `3player` bucket anymore.
 - **No accounts, ads, analytics, backend, build step, or external runtime calls.**
 - Everything is static files under `docs/`, deployed by GitHub Pages from `master` `/docs`.
@@ -255,17 +255,17 @@ Rules:
    - offline reload test
 10. Commit and push to `master`; verify the GitHub Pages build.
 
-## 14. Current catalog (after P1 wave 2)
+## 14. Current catalog (after P1 wave 3)
 
-**1 player (8):** 2048, Sudoku, Minesweeper, Word Guess, Hangman, Water Sort, Solitaire, Darts.
+**1 player (13):** 2048, Sudoku, Minesweeper, Word Guess, Hangman, Water Sort, Solitaire, Sliding Puzzle, Wood Blocks, Stack, Flappy Jump, Ball Run, Darts.
 
-**2 player (12):** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Air Hockey, Chess, Mancala, Mini Golf, Checkers, Paint Fight, Memory Match.
+**2 player (15):** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Air Hockey, Chess, Mancala, Mini Golf, Checkers, Paint Fight, Memory Match, Sumo, Penalty Kicks, Dots and Boxes.
 
-**4 player (7):** Whack-a-Mole, Snakes 4P, Paint Fight 4P, Spinner War 4P, Tug of War 2v2, Archery, Math Race.
+**4 player (9):** Whack-a-Mole, Snakes 4P, Paint Fight 4P, Spinner War 4P, Tug of War 2v2, Archery, Math Race, Reflex Race, Ludo.
 
-**AI modes:** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Chess, Checkers. Air Hockey and Mancala are local 2P only. Darts is counted as the sixth 1P card because solo 501 is its primary mode, while the same build supports local 2P.
+**AI modes:** Tic Tac Toe, Four in a Row, Ping Pong, Snakes, Pool, Chess, Checkers, Sumo, Penalty Kicks, Dots and Boxes. Air Hockey and Mancala are local 2P only; Ludo is hot-seat 4P (a Ludo AI remains open). Darts is counted as an 1P card because solo 501 is its primary mode, while the same build supports local 2P.
 
-**Still queued from P1:** the P1 solo/duel titles not in wave 1, plus Reflex Race and Ludo for the party bucket.
+**Still queued from P1:** Sword Duel, Racing Cars, plus depth titles (FreeCell, Word Finder, Jigsaw, Knife Hit, Basketball).
 
 ## 15. Definition of done
 

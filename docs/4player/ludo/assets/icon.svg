@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="#FFFDF8" stroke="#1E2433" stroke-opacity=".14" stroke-width="2"/>
+
+  <!-- cross board -->
+  <path d="M38 8h36v30h30v36H74v30H38V74H8V38h30z" fill="#F6EDE0" stroke="#1E2433" stroke-opacity=".35" stroke-width="2.6" stroke-linejoin="round"/>
+
+  <!-- yards -->
+  <rect x="13" y="13" width="20" height="20" rx="7" fill="#21B6A8" fill-opacity=".85"/>
+  <rect x="79" y="13" width="20" height="20" rx="7" fill="#7C5CFF" fill-opacity=".85"/>
+  <rect x="13" y="79" width="20" height="20" rx="7" fill="#FF6B5A" fill-opacity=".85"/>
+  <rect x="79" y="79" width="20" height="20" rx="7" fill="#3D6FB4" fill-opacity=".85"/>
+
+  <!-- centre goal -->
+  <rect x="46" y="46" width="20" height="20" rx="6" fill="#FFB703" stroke="#1E2433" stroke-opacity=".4" stroke-width="2.4"/>
+  <path d="M56 46v20M46 56h20" stroke="#1E2433" stroke-opacity=".35" stroke-width="2"/>
+
+  <!-- tokens on the track -->
+  <circle cx="56" cy="24" r="7.5" fill="#7C5CFF" stroke="#1E2433" stroke-opacity=".4" stroke-width="2.4"/>
+  <circle cx="88" cy="56" r="7.5" fill="#3D6FB4" stroke="#1E2433" stroke-opacity=".4" stroke-width="2.4"/>
+  <circle cx="24" cy="56" r="7.5" fill="#21B6A8" stroke="#1E2433" stroke-opacity=".4" stroke-width="2.4"/>
+  <circle cx="56" cy="88" r="7.5" fill="#FF6B5A" stroke="#1E2433" stroke-opacity=".4" stroke-width="2.4"/>
+</svg>

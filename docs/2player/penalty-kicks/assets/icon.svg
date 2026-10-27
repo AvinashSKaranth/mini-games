@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DFF0FF"/>
+      <stop offset="1" stop-color="#EFFAFF"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7EC85F"/>
+      <stop offset="1" stop-color="#6DB852"/>
+    </linearGradient>
+    <pattern id="net" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 0h10v10H0z" fill="none" stroke="#1E2433" stroke-opacity=".28" stroke-width="1.4"/>
+    </pattern>
+  </defs>
+
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#sky)"/>
+  <path d="M4 68h104v14a26 26 0 0 1-26 26H30a26 26 0 0 1-26-26z" fill="url(#grass)"/>
+
+  <!-- goal frame -->
+  <g>
+    <rect x="24" y="26" width="64" height="42" rx="4" fill="url(#net)"/>
+    <rect x="24" y="26" width="64" height="42" rx="4" fill="none" stroke="#FFFDF8" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="24" y="26" width="64" height="42" rx="4" fill="none" stroke="#1E2433" stroke-opacity=".35" stroke-width="1.4"/>
+  </g>
+
+  <!-- glove -->
+  <g transform="translate(36 52) rotate(-14)">
+    <path d="M-8-10c6-4 14-4 18 2l4 8c1 4-1 8-5 9l-10 2c-5 1-9-3-9-8z" fill="#21B6A8" stroke="#1E2433" stroke-opacity=".35" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M10-4c4-2 8 0 8 4" fill="none" stroke="#1E2433" stroke-opacity=".35" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <!-- ball -->
+  <g transform="translate(72 78)">
+    <circle r="16" fill="#FFFDF8" stroke="#1E2433" stroke-opacity=".5" stroke-width="2.4"/>
+    <path d="M0-7 6-2 4 5-4 5-6-2z" fill="#1E2433"/>
+    <path d="M-13-4l5 2M13-4l-5 2M-5 12l3-5M5 12l-3-5" stroke="#1E2433" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

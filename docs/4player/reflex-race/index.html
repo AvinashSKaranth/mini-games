@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="Play Reflex Race offline. Four players wait for the signal and tap as one — false starts are out, last player standing scores.">
+  <title>Reflex Race · 4 Player · Mini Games</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="stylesheet" href="../../shared/game.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="icon-btn" href="../../index.html" aria-label="Back to all games">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="brand">
+        <img src="assets/icon.svg" alt="" width="40" height="40">
+        <div>
+          <h1>Reflex Race</h1>
+          <p>4 players · reaction duel</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="reset" type="button" aria-label="Restart the cup">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <section class="cupbar" aria-label="Cup standing">
+      <span class="cup-label" id="heat-label">Heat 1</span>
+      <span class="cup-target">First to 2 points</span>
+      <span class="cup-best">Best <b id="best">—</b></span>
+    </section>
+
+    <div class="stage" id="stage">
+      <div class="signal" id="signal" aria-hidden="true"><span id="signal-text">WAIT</span></div>
+
+      <button class="pad pad--p1" type="button" data-p="0" aria-label="Player 1 tap zone">
+        <span class="pad-name">P1</span>
+        <span class="pad-time" id="time-0">—</span>
+        <span class="pad-points" id="points-0"><i></i><i></i></span>
+      </button>
+      <button class="pad pad--p2" type="button" data-p="1" aria-label="Player 2 tap zone">
+        <span class="pad-name">P2</span>
+        <span class="pad-time" id="time-1">—</span>
+        <span class="pad-points" id="points-1"><i></i><i></i></span>
+      </button>
+      <button class="pad pad--p3" type="button" data-p="2" aria-label="Player 3 tap zone">
+        <span class="pad-name">P3</span>
+        <span class="pad-time" id="time-2">—</span>
+        <span class="pad-points" id="points-2"><i></i><i></i></span>
+      </button>
+      <button class="pad pad--p4" type="button" data-p="3" aria-label="Player 4 tap zone">
+        <span class="pad-name">P4</span>
+        <span class="pad-time" id="time-3">—</span>
+        <span class="pad-points" id="points-3"><i></i><i></i></span>
+      </button>
+    </div>
+
+    <p class="hint">Do not move until the signal turns green — a false start is out. The slowest tap each heat is eliminated; last player standing takes the point.</p>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card" role="dialog" aria-modal="true" aria-labelledby="veil-title">
+      <img src="assets/icon.svg" alt="" width="64" height="64">
+      <p class="eyebrow" id="veil-eyebrow">Heat won</p>
+      <h2 id="veil-title">Player 1 takes it!</h2>
+      <p id="veil-copy">Fastest fingers this round.</p>
+      <dl class="result" id="veil-stats"></dl>
+      <div class="veil-actions">
+        <button class="btn btn--primary" id="veil-primary" type="button">Next match</button>
+        <a class="btn btn--ghost" href="../../index.html">All games</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../../sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

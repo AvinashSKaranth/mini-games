@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CDEBFF"/>
+      <stop offset="1" stop-color="#EAF7FF"/>
+    </linearGradient>
+    <linearGradient id="pipe" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3AD4C4"/>
+      <stop offset="0.5" stop-color="#21B6A8"/>
+      <stop offset="1" stop-color="#149A8F"/>
+    </linearGradient>
+    <linearGradient id="bird" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A7B"/>
+      <stop offset="1" stop-color="#FF6B5A"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#sky)"/>
+
+  <!-- pipes -->
+  <g>
+    <rect x="70" y="4" width="24" height="34" rx="5" fill="url(#pipe)"/>
+    <rect x="66" y="30" width="32" height="12" rx="5" fill="#17A294"/>
+    <rect x="70" y="74" width="24" height="34" rx="5" fill="url(#pipe)"/>
+    <rect x="66" y="70" width="32" height="12" rx="5" fill="#17A294"/>
+  </g>
+
+  <!-- bird -->
+  <g transform="rotate(-12 40 54)">
+    <circle cx="40" cy="54" r="20" fill="url(#bird)" stroke="#1E2433" stroke-opacity=".25" stroke-width="2.5"/>
+    <path d="M30 58c6 6 16 6 22 0" fill="none" stroke="#FFFDF8" stroke-opacity=".8" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="47" cy="47" r="7" fill="#FFFDF8"/>
+    <circle cx="49" cy="47" r="3.2" fill="#1E2433"/>
+    <path d="M57 52l10 3-10 4z" fill="#FFB703" stroke="#1E2433" stroke-opacity=".3" stroke-width="1.6" stroke-linejoin="round"/>
+  </g>
+
+  <path d="M14 40c4-4 9-4 13 0" fill="none" stroke="#1E2433" stroke-opacity=".2" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 88h18" stroke="#78B841" stroke-width="5" stroke-linecap="round"/>
+</svg>
