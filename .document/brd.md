@@ -3,8 +3,8 @@
 **Project:** `mini-games`
 **Reference:** [Offline Games – No Wifi Games](https://play.google.com/store/apps/details?id=com.JindoBlu.OfflineGames&hl=en_IN) + sibling JindoBlu titles ([2 Player games: the Challenge](https://play.google.com/store/apps/details?id=com.JindoBlu.TwoPlayerGamesChallenge), [1 2 3 4 Player Games](https://play.google.com/store/apps/details?id=com.JindoBlu.FourPlayers))
 **Platform:** Mobile-first static website, hosted on GitHub Pages, free to play, no login, no backend
-**Status:** 27-game slice shipped (P1 waves 1–4)
-**Date:** 23 Oct 2026
+**Status:** 37-game slice shipped (P1 waves 1–5)
+**Date:** 27 Oct 2026
 
 ---
 
@@ -340,8 +340,18 @@ Ship after every phase; GitHub Pages deploys from `/docs` on `main`.
 | Tug of War | 4 | `docs/4player/tug-of-war/` | 2v2 rhythm tapping, combo pull multiplier, 30-second clock, instant win at the line |
 | Archery | 4 | `docs/4player/archery/` | Five hot-seat rounds, drag-to-aim target, wind drift, sweeping power meter, ring scoring |
 | Math Race | 4 | `docs/4player/math-race/` | Four quiz lanes, per-player difficulty ramp, wrong-answer pause, first to eight wins, best time |
+| Sliding Puzzle | 1 | `docs/1player/sliding-puzzle/` | 3×3/4×4/5×5 sizes, solvable shuffles, taps and arrow keys, undo, timer, best time per size |
+| Wood Blocks | 1 | `docs/1player/wood-blocks/` | 9×9 board, drag-or-tap tray of polyominoes, row/column/3×3 clears, combo scoring, best score |
+| Stack | 1 | `docs/1player/stack/` | Moving-block timing, perfect-drop combos, offcut physics, camera rise, best height |
+| Flappy Jump | 1 | `docs/1player/flappy-jump/` | One-tap flight, generated pipe gaps, distance scoring, ramping speed, best score |
+| Ball Run | 1 | `docs/1player/ball-run/` | Three-lane runner, gap and gem rows, ramping speed, lane buttons/arrows/tap halves, best score |
+| Sumo | 2 | `docs/2player/sumo/` | Local 2P or AI, push/dash physics, twin control pads, ring-out detection, first to two bouts |
+| Penalty Kicks | 2 | `docs/2player/penalty-kicks/` | Local 2P or AI, hold-for-power aim, drifting overcooked shots, reaction-time diving keeper, five kicks each with sudden death |
+| Dots and Boxes | 2 | `docs/2player/dots-and-boxes/` | 3×3/4×4/5×5 boards, extra turns on claims, greedy chain-aware AI |
+| Reflex Race | 4 | `docs/4player/reflex-race/` | Randomised signal, false-start elimination, knockout heats, cup first to two, best reaction stored |
+| Ludo | 4 | `docs/4player/ludo/` | 56-square circuit, four tokens each, six-to-enter, captures off safe squares, home columns, hot-seat play |
 
-Landing page is `docs/index.html`, with player-count filters for All 27, 1P 8, 2P 12, and 4P 7. Darts is classified as the sixth 1P card because solo 501 is its primary mode; the build also supports local 2P.
+Landing page is `docs/index.html`, with player-count filters for All 37, 1P 13, 2P 15, and 4P 9. Darts is classified as the eighth 1P card because solo 501 is its primary mode; the build also supports local 2P.
 
 ### Decisions taken
 
@@ -351,12 +361,13 @@ Landing page is `docs/index.html`, with player-count filters for All 27, 1P 8, 2
 - **Player buckets:** Whack-a-Mole moved from `docs/3player/` to `docs/4player/` and was rebuilt for four players. The old `3player` bucket is gone.
 - **AI coverage:** AI modes were added to the five existing AI-tagged duels: Tic Tac Toe, Four in a Row, Ping Pong, Snakes, and Pool. Chess and Checkers also include AI. Local 2P remains the default wherever both exist.
 - **Reset polish:** new games use the shared fade-out/rebuild/fade-in helper for New game, reset, next round, and rematch actions. Reduced-motion users get an instant rebuild.
+- **P1 wave 3:** Sliding Puzzle, Wood Blocks, Stack, Flappy Jump, Ball Run, Sumo, Penalty Kicks, Dots and Boxes, Reflex Race, and Ludo. Sumo, Penalty Kicks, and Dots and Boxes ship with AI opponents behind the usual 2P/vs-AI switch. Reflex Race runs knockout heats — the earliest false start or the slowest tap is eliminated each heat, and the cup goes to the first player with two match points. Ludo ships as a hot-seat four-player game on an original 56-square circuit with symmetric home columns; a computer opponent for Ludo remains open.
 - **Orientation:** portrait and landscape are both supported. Landscape uses a board-plus-side-panel grid for board games, a four-column layout for Whack-a-Mole, and a canvas-plus-controls layout for Snakes 4P.
 - **Sound:** no audio in this slice; synthesized SFX remain a later polish item.
 
 ### Offline and performance
 
-- `docs/sw.js` pre-caches the hub, shared shell, and all twenty-seven games. `CACHE` is now `mini-games-v11`.
+- `docs/sw.js` pre-caches the hub, shared shell, and all thirty-seven games. `CACHE` is now `mini-games-v12`.
 - Install fetches each core asset with `cache: 'reload'` so a new service-worker version cannot re-cache stale files from an older worker.
 - All assets are local SVGs; no external fonts, scripts, or network calls are required after first load.
 - Static checks cover every game link and asset, and browser smoke tests cover 320x568, 390x844, 568x320, and 844x390 plus an offline reload.
@@ -369,4 +380,4 @@ Set GitHub Pages to deploy from the `master` branch, `/docs` folder (this repo c
 
 - Reference art sample for a closer style match.
 - Sound effects and haptics.
-- The remaining catalog: four-player party titles (Reflex Race, Ludo), more duels, and depth titles from section 3.
+- The remaining catalog: duels from section 3.2 (Sword Duel, Racing Cars, Sumo already shipped) and depth titles from section 3 (FreeCell, Word Finder, Jigsaw, Knife Hit, Basketball).

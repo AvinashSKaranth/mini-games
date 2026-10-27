@@ -1,0 +1,94 @@
+body {
+  overflow-x: hidden;
+}
+
+.app {
+  max-width: 560px;
+  gap: 10px;
+}
+
+/* ---------- stage ---------- */
+.stage-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 58dvh;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #17202f 0%, #1e2433 55%, #232c3f 100%);
+  box-shadow: var(--shadow);
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stage-wrap:focus-visible {
+  outline: 3px solid rgba(124, 92, 255, .4);
+  outline-offset: 2px;
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- toast ---------- */
+.toast {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  transform: translate(-50%, 0);
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 183, 3, .94);
+  color: #1e2433;
+  font-size: .8rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toast.is-show { animation: toast-rise .8s ease-out forwards; }
+
+@keyframes toast-rise {
+  0% { opacity: 0; transform: translate(-50%, 8px) scale(.9); }
+  22% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  75% { opacity: 1; transform: translate(-50%, -6px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -18px) scale(.98); }
+}
+
+/* ---------- overlay extras ---------- */
+.result { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* ---------- small portrait ---------- */
+@media (max-height: 660px) and (orientation: portrait) {
+  .app { gap: 8px; }
+  .hint { display: none; }
+  .stage-wrap { max-height: 54dvh; }
+}
+
+/* ---------- landscape ---------- */
+@media (orientation: landscape) and (max-height: 620px) {
+  .app {
+    max-width: 900px;
+    gap: 6px;
+  }
+
+  .stage-wrap {
+    aspect-ratio: 16 / 9;
+    max-height: 52dvh;
+  }
+
+  .hint { display: none; }
+}
+
+@media (max-height: 340px) and (orientation: landscape) {
+  .app { gap: 4px; }
+  .stage-wrap { max-height: 56dvh; }
+}

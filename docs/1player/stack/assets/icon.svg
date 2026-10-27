@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#232E44"/>
+      <stop offset="1" stop-color="#171E2D"/>
+    </linearGradient>
+    <linearGradient id="blockA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC93A"/>
+      <stop offset="1" stop-color="#F0A400"/>
+    </linearGradient>
+    <linearGradient id="blockB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3AD4C4"/>
+      <stop offset="1" stop-color="#17A294"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="104" height="104" rx="26" fill="url(#bg)"/>
+
+  <g>
+    <rect x="26" y="76" width="60" height="14" rx="5" fill="#FF6B5A"/>
+    <rect x="30" y="60" width="52" height="14" rx="5" fill="url(#blockB)"/>
+    <rect x="34" y="44" width="44" height="14" rx="5" fill="#7C5CFF"/>
+    <rect x="38" y="28" width="36" height="14" rx="5" fill="url(#blockA)"/>
+  </g>
+
+  <rect x="16" y="12" width="34" height="12" rx="5" fill="#FFFDF8" fill-opacity=".9" stroke="#1E2433" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M62 18h14m0 0-5-5m5 5-5 5" fill="none" stroke="#FFFDF8" stroke-opacity=".85" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
